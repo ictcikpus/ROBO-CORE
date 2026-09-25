@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ROBO-CORE: MATH MATRIX - Cybernetic Logic Adventure</title>
+    
+    <!-- PWA Primary Meta Tags -->
+    <meta name="theme-color" content="#020617">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="RoboCore">
+    <meta name="description" content="ROBO-CORE: MATH MATRIX - Game Edukasi Matematika Arcade Futuristik">
+
+    <!-- Tailwind CSS & FontAwesome CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Orbitron:wght@500;700;900&family=Press+Start+2P&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+            background-color: #020617;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .font-cyber {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .cyber-glass-panel {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(56, 189, 248, 0.15);
+        }
+
+        .cyber-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-cyber {
+            position: relative;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        .btn-cyber:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+        .btn-cyber:active {
+            transform: translateY(1px) scale(0.97);
+        }
+
+        .cyber-scanlines {
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        @keyframes cyber-glow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8)); }
+            50% { filter: drop-shadow(0 0 22px rgba(236, 72, 153, 0.9)); }
+        }
+
+        .animate-cyber-glow {
+            animation: cyber-glow 2.5s infinite ease-in-out;
+        }
+
+        canvas {
+            display: block;
+            touch-action: none;
+        }
+
+        @keyframes rotate-phone {
+            0%, 10% { transform: rotate(0deg); }
+            40%, 60% { transform: rotate(90deg); }
+            90%, 100% { transform: rotate(0deg); }
+        }
+
+        .animate-rotate-phone {
+            animation: rotate-phone 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex flex-col justify-between items-center text-white select-none overflow-hidden relative">
+
+    <div class="absolute inset-0 cyber-scanlines z-30 pointer-events-none opacity-40"></div>
+
+    <!-- PORTRAIT ORIENTATION WARNING OVERLAY -->
+    <div id="portrait-warning" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col justify-center items-center p-6 text-center">
+        <div class="text-7xl text-cyan-400 mb-6 animate-rotate-phone">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <h2 class="text-2xl md:text-3xl font-cyber font-black text-amber-400 mb-2 tracking-wider">PUTAR KELAYAR LANDSCAPE</h2>
+        <p class="text-slate-300 text-sm md:text-base max-w-md mb-6">
+            Game ini dirancang untuk tampilan presisi tinggi dalam posisi <span class="text-cyan-300 font-bold">Horizontal / Landscape</span>.
+        </p>
+        <button onclick="requestFullscreenAndLock()" class="btn-cyber px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-white shadow-lg flex items-center space-x-2 border border-cyan-300">
+            <i class="fa-solid fa-expand text-lg"></i>
+            <span>AKTIFKAN FULLSCREEN LANDSCAPE</span>
+        </button>
+    </div>
+
+    <!-- START / MENU OVERLAY -->
+    <div id="menu-overlay" class="fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-xl flex flex-col justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-lg p-6 md:p-8 rounded-3xl border-2 border-cyan-400/50 shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl"></div>
+
+            <div class="inline-flex items-center space-x-2 bg-slate-900/80 px-4 py-1.5 rounded-full text-cyan-300 text-xs font-cyber font-bold mb-3 border border-cyan-500/40 tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>SYSTEM ONLINE • 30 MATRIX LEVELS</span>
+            </div>
+
+            <!-- Epic Main Title -->
+            <h1 class="text-3xl md:text-5xl font-black font-cyber text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-pink-400 mb-1 tracking-wider filter drop-shadow-[0_2px_10px_rgba(6,182,212,0.6)]">
+                ROBO-CORE
+            </h1>
+            <div class="text-xs md:text-sm font-cyber font-bold tracking-[0.3em] text-yellow-400 mb-6">
+                MATH MATRIX ADVENTURE
+            </div>
+
+            <div class="space-y-3 max-w-xs mx-auto">
+                <button onclick="startGame()" class="btn-cyber w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 rounded-2xl font-cyber font-black text-lg text-white shadow-xl border border-emerald-300/60 flex justify-center items-center space-x-3 tracking-wider">
+                    <i class="fa-solid fa-play text-xl"></i>
+                    <span>MULAI MAIN</span>
+                </button>
+
+                <!-- PWA Install Button -->
+                <button id="btn-pwa-install" onclick="installPWAApp()" class="hidden btn-cyber w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 rounded-2xl font-bold text-slate-950 shadow-lg border border-yellow-200 flex justify-center items-center space-x-2">
+                    <i class="fa-solid fa-download text-lg"></i>
+                    <span>INSTALL APP / APK</span>
+                </button>
+
+                <button onclick="openWorkshop()" class="btn-cyber w-full py-3 bg-slate-900/90 hover:bg-slate-800 rounded-2xl font-cyber font-bold text-xs md:text-sm text-cyan-300 border border-slate-700 flex justify-center items-center space-x-2 tracking-wider">
+                    <i class="fa-solid fa-wrench text-yellow-400"></i>
+                    <span>BENGKEL MODIFIKASI</span>
+                </button>
+            </div>
+
+            <div class="mt-6 text-[11px] text-slate-400 flex justify-center items-center space-x-3">
+                <span><i class="fa-solid fa-keyboard text-cyan-400 mr-1"></i> [A][D] / [←][→] Gerak</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-arrow-up text-amber-400 mr-1"></i> [SPACE] Lompat</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP HEADER / HUD -->
+    <header class="w-full max-w-6xl px-3 py-2 z-20 flex justify-between items-center cyber-glass-panel rounded-b-2xl shadow-xl border-t-0">
+        <div class="flex items-center space-x-2 md:space-x-3">
+            <div class="bg-slate-900/90 px-3 py-1.5 rounded-xl border border-cyan-500/40 flex items-center space-x-2">
+                <i class="fa-solid fa-layer-group text-cyan-400 text-xs md:text-sm"></i>
+                <span class="font-cyber font-bold text-xs md:text-sm tracking-wider">LEVEL <span id="hud-level" class="text-yellow-300 text-sm md:text-base">1</span><span class="text-slate-500 text-xs">/30</span></span>
+            </div>
+            <div class="bg-slate-900/90 px-3 py-1.5 rounded-xl border border-amber-500/40 flex items-center space-x-2">
+                <i class="fa-solid fa-trophy text-amber-400 text-xs md:text-sm"></i>
+                <span class="font-cyber font-bold text-xs md:text-sm tracking-wider"><span id="hud-score" class="text-white text-sm md:text-base">0</span> <span class="text-amber-400 text-[10px]">PTS</span></span>
+            </div>
+        </div>
+
+        <div id="flying-pill-hud" class="hidden flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 px-3.5 py-1.5 rounded-xl border border-pink-300 animate-bounce shadow-lg">
+            <i class="fa-solid fa-rocket text-yellow-300 text-sm"></i>
+            <span class="font-cyber font-bold text-xs md:text-sm text-white">JETPACK: <span id="pill-timer" class="text-yellow-200">30</span>s</span>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <button id="btn-pwa-hud" onclick="installPWAApp()" class="hidden btn-cyber bg-amber-500 hover:bg-amber-400 px-2.5 py-1.5 rounded-xl border border-amber-300 text-slate-950 font-bold text-xs flex items-center space-x-1">
+                <i class="fa-solid fa-download"></i>
+                <span class="hidden sm:inline">INSTALL</span>
+            </button>
+            <button onclick="toggleAudio()" class="btn-cyber bg-slate-900/90 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-amber-400">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-sm md:text-base"></i>
+            </button>
+            <button onclick="openWorkshop()" class="btn-cyber bg-cyan-950 hover:bg-cyan-900 p-2.5 rounded-xl border border-cyan-500/50 text-cyan-300">
+                <i class="fa-solid fa-wrench text-sm md:text-base"></i>
+            </button>
+            <button onclick="restartLevel()" class="btn-cyber bg-rose-950 hover:bg-rose-900 p-2.5 rounded-xl border border-rose-500/50 text-rose-300">
+                <i class="fa-solid fa-rotate-right text-sm md:text-base"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CANVAS CONTAINER -->
+    <main class="relative w-full flex-1 flex justify-center items-center overflow-hidden my-1">
+        <canvas id="gameCanvas" class="w-full h-full rounded-2xl shadow-inner"></canvas>
+
+        <div id="touch-controls" class="absolute inset-0 pointer-events-none flex justify-between items-end p-4 z-10">
+            <div class="flex space-x-3 pointer-events-auto">
+                <button id="btn-left" class="w-16 h-16 md:w-18 md:h-18 bg-slate-900/80 active:bg-cyan-600/80 border-2 border-cyan-400/60 rounded-2xl flex justify-center items-center text-cyan-300 text-2xl shadow-2xl active:scale-95 backdrop-blur-md">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="btn-right" class="w-16 h-16 md:w-18 md:h-18 bg-slate-900/80 active:bg-cyan-600/80 border-2 border-cyan-400/60 rounded-2xl flex justify-center items-center text-cyan-300 text-2xl shadow-2xl active:scale-95 backdrop-blur-md">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="flex space-x-2 pointer-events-auto">
+                <button id="btn-jump" class="w-18 h-18 md:w-20 md:h-20 bg-gradient-to-tr from-amber-500 to-yellow-400 active:from-yellow-400 active:to-amber-600 border-2 border-yellow-200/80 rounded-full flex flex-col justify-center items-center text-slate-950 font-black shadow-2xl active:scale-90 font-cyber tracking-wider">
+                    <i class="fa-solid fa-angles-up text-xl mb-0.5"></i>
+                    <span class="text-[9px]">LOMPAT</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- MATH QUIZ OVERLAY MODAL -->
+    <div id="math-modal" class="hidden fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-lg p-6 rounded-3xl border-2 border-cyan-400 shadow-2xl text-center">
+            <div class="inline-flex items-center space-x-2 bg-cyan-950/80 px-4 py-1 rounded-full text-cyan-300 text-xs font-cyber font-bold mb-2 border border-cyan-400/50 tracking-wider">
+                <i class="fa-solid fa-microchip text-yellow-400"></i>
+                <span>CYBER TERMINAL • SECURITY GATE</span>
+            </div>
+            
+            <h3 class="text-lg md:text-xl font-cyber font-bold text-white mb-1">Pecahkan Kode Matriks!</h3>
+            <p class="text-xs text-slate-300 mb-3">Jawab tepat untuk membuka gerbang energi dan klaim poin ekstra.</p>
+
+            <div id="math-question" class="bg-slate-950/90 py-4 px-4 rounded-2xl border-2 border-amber-400/80 font-pixel text-yellow-300 text-base md:text-lg my-3 shadow-inner flex justify-center items-center min-h-[68px] tracking-wide">
+                5 + 7 = ?
+            </div>
+
+            <div id="math-options" class="grid grid-cols-2 gap-3 my-3"></div>
+            <div id="math-feedback" class="h-6 font-cyber font-bold text-xs md:text-sm"></div>
+        </div>
+    </div>
+
+    <!-- LEVEL COMPLETE MODAL -->
+    <div id="win-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-md p-6 rounded-3xl border-2 border-amber-400 shadow-2xl text-center relative overflow-hidden">
+            <div class="w-16 h-16 mx-auto mb-2 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex justify-center items-center shadow-lg border border-yellow-100">
+                <i class="fa-solid fa-trophy text-slate-950 text-3xl"></i>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-cyber font-black text-white tracking-wider mb-0.5">LEVEL CLEARED!</h2>
+            <p id="win-theme-name" class="text-cyan-300 font-cyber text-xs md:text-sm font-bold mb-3">Cyber City Mastered</p>
+
+            <div class="flex justify-center space-x-3 my-2 text-3xl">
+                <i id="star-1" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
+                <i id="star-2" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
+                <i id="star-3" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
+            </div>
+
+            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 my-4 space-y-2 text-xs md:text-sm font-cyber">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Bonus Selesai Level:</span>
+                    <span id="win-score" class="font-bold text-yellow-300">+350</span>
+                </div>
+                <div class="flex justify-between border-t border-slate-800 pt-1.5">
+                    <span class="text-slate-300">Total Skor Akumulasi:</span>
+                    <span id="win-total-score" class="font-bold text-emerald-400 text-sm">1250</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-3">
+                <button onclick="restartLevel()" class="btn-cyber px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-white text-xs md:text-sm flex items-center space-x-1.5">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>ULANG</span>
+                </button>
+                <button id="btn-next-level" onclick="nextLevel()" class="btn-cyber px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 border border-emerald-300 rounded-xl font-cyber font-black text-white text-xs md:text-sm shadow-xl flex items-center space-x-2 tracking-wider">
+                    <span>LEVEL SELANJUTNYA</span>
+                    <i class="fa-solid fa-circle-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROBOT WORKSHOP MODAL -->
+    <div id="workshop-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-lg p-6 rounded-3xl border-2 border-cyan-400 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeWorkshop()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2 class="text-xl font-cyber font-black text-cyan-300 flex items-center space-x-2 mb-4 tracking-wider">
+                <i class="fa-solid fa-robot text-yellow-400"></i>
+                <span>BENGKEL CYBER ROBOT</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-3">
+                <div class="cyber-card p-3.5 rounded-2xl">
+                    <h4 class="font-bold text-xs text-yellow-300 mb-2.5 font-cyber"><i class="fa-solid fa-palette mr-1"></i> Warna Body Armor</h4>
+                    <div class="grid grid-cols-5 gap-2">
+                        <button onclick="setRobotColor('#06b6d4')" class="h-9 rounded-xl bg-cyan-500 border-2 border-white hover:scale-105 shadow-md"></button>
+                        <button onclick="setRobotColor('#ec4899')" class="h-9 rounded-xl bg-pink-500 border-2 border-white hover:scale-105 shadow-md"></button>
+                        <button onclick="setRobotColor('#eab308')" class="h-9 rounded-xl bg-yellow-500 border-2 border-white hover:scale-105 shadow-md"></button>
+                        <button onclick="setRobotColor('#22c55e')" class="h-9 rounded-xl bg-green-500 border-2 border-white hover:scale-105 shadow-md"></button>
+                        <button onclick="setRobotColor('#a855f7')" class="h-9 rounded-xl bg-purple-500 border-2 border-white hover:scale-105 shadow-md"></button>
+                    </div>
+                </div>
+
+                <div class="cyber-card p-3.5 rounded-2xl">
+                    <h4 class="font-bold text-xs text-yellow-300 mb-2.5 font-cyber"><i class="fa-solid fa-microchip mr-1"></i> Engine Speed Module</h4>
+                    <div class="space-y-2">
+                        <button onclick="upgradeCPU('Standard', 1.0)" class="w-full py-1.5 px-3 bg-slate-900/90 hover:bg-slate-800 rounded-xl text-left text-xs font-bold border border-slate-700 flex justify-between items-center">
+                            <span>Standard Core</span>
+                            <span class="text-cyan-400 font-cyber">1.0x</span>
+                        </button>
+                        <button onclick="upgradeCPU('Turbo', 1.25)" class="w-full py-1.5 px-3 bg-slate-900/90 hover:bg-slate-800 rounded-xl text-left text-xs font-bold border border-slate-700 flex justify-between items-center">
+                            <span>Quantum Turbo</span>
+                            <span class="text-amber-400 font-cyber">1.25x</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cyber-card p-3.5 rounded-2xl my-2 text-xs">
+                <div class="flex justify-between mb-1.5 font-cyber">
+                    <span>Kecepatan Akselerasi:</span>
+                    <span id="stat-speed-text" class="text-cyan-400 font-bold">100%</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700">
+                    <div id="stat-speed-bar" class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 70%"></div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button onclick="closeWorkshop()" class="btn-cyber px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-cyber font-bold text-white text-xs tracking-wider">
+                    SIMPAN & KEMBALI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let canvas, ctx;
+        let gameState = 'menu'; // 'menu', 'playing', 'quiz', 'win', 'workshop'
+        let currentLevel = 1;
+        let totalScore = 0;
+        let levelScore = 0;
+        let soundEnabled = true;
+        let audioCtx = null;
+        let deferredPrompt = null;
+
+        // Player & Robot Properties
+        let robot = {
+            x: 100,
+            y: 300,
+            width: 40,
+            height: 48,
+            vx: 0,
+            vy: 0,
+            speedMultiplier: 1.0,
+            jumpForce: -12,
+            facingRight: true,
+            isGrounded: false,
+            jumpCount: 0,
+            maxJumps: 2,
+            scale: 1.0,
+            color: '#06b6d4',
+            faceExpression: '^ ^',
+            isFlying: false,
+            flyTimeLeft: 0,
+            flyInterval: null
+        };
+
+        // Game Entities
+        let camera = { x: 0, y: 0 };
+        let platforms = [];
+        let stars = [];
+        let gates = [];
+        let flyingPills = [];
+        let finishPortal = { x: 0, y: 0, width: 60, height: 80 };
+        let activeGate = null;
+        let keys = { left: false, right: false, jump: false };
+        let levelThemes = [
+            { name: "Cyber City Metropolis", bg: "#020617", sky: "#0f172a", platform: "#1e293b", accent: "#38bdf8" },
+            { name: "Neon Forest Ledges", bg: "#022c22", sky: "#064e3b", platform: "#065f46", accent: "#34d399" },
+            { name: "Golden Crystal Canyon", bg: "#451a03", sky: "#78350f", platform: "#92400e", accent: "#fbbf24" },
+            { name: "Aurora Snow Peak", bg: "#0f172a", sky: "#1e1b4b", platform: "#312e81", accent: "#a5f3fc" },
+            { name: "Volcanic Lava Citadel", bg: "#450a0a", sky: "#7f1d1d", platform: "#991b1b", accent: "#f87171" },
+            { name: "Rainbow Cloud Kingdom", bg: "#2e1065", sky: "#581c87", platform: "#6b21a8", accent: "#f472b6" }
+        ];
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled || !audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'jump') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.15);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                } else if (type === 'star') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === 'correct') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(880, now + 0.1);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.setValueAtTime(110, now + 0.15);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'win') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.15);
+                    osc.frequency.setValueAtTime(783.99, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('btn-pwa-install')?.classList.remove('hidden');
+            document.getElementById('btn-pwa-hud')?.classList.remove('hidden');
+        });
+
+        window.installPWAApp = function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => {
+                    deferredPrompt = null;
+                    document.getElementById('btn-pwa-install')?.classList.add('hidden');
+                    document.getElementById('btn-pwa-hud')?.classList.add('hidden');
+                });
+            }
+        };
+
+        window.requestFullscreenAndLock = function() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
+        };
+
+        window.toggleAudio = function() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            if (icon) {
+                icon.className = soundEnabled ? 'fa-solid fa-volume-high text-sm md:text-base' : 'fa-solid fa-volume-xmark text-sm md:text-base text-rose-400';
+            }
+            initAudio();
+        };
+
+        window.openWorkshop = function() {
+            document.getElementById('workshop-modal')?.classList.remove('hidden');
+        };
+
+        window.closeWorkshop = function() {
+            document.getElementById('workshop-modal')?.classList.add('hidden');
+        };
+
+        window.setRobotColor = function(color) {
+            robot.color = color;
+            playSound('star');
+        };
+
+        window.upgradeCPU = function(name, mult) {
+            robot.speedMultiplier = mult;
+            const bar = document.getElementById('stat-speed-bar');
+            const txt = document.getElementById('stat-speed-text');
+            if (bar) bar.style.width = (mult * 70) + '%';
+            if (txt) txt.innerText = Math.round(mult * 100) + '%';
+            playSound('correct');
+        };
+
+        function generateLevel(lvl) {
+            platforms = [];
+            stars = [];
+            gates = [];
+            flyingPills = [];
+
+            const totalSteps = 10 + Math.min(lvl, 15);
+            let currentX = 50;
+            let currentY = 500;
+
+            // Base Safe Floor
+            platforms.push({ x: -200, y: 650, width: 3000, height: 100, isSafeBase: true });
+
+            // Starting Platform
+            platforms.push({ x: 0, y: currentY, width: 200, height: 25 });
+
+            for (let i = 0; i < totalSteps; i++) {
+                currentX += 160 + Math.random() * 40;
+                currentY -= 40 + Math.random() * 20;
+
+                platforms.push({ x: currentX, y: currentY, width: 120, height: 22 });
+
+                // Add stars on platforms
+                if (Math.random() > 0.3) {
+                    stars.push({ x: currentX + 50, y: currentY - 35, width: 20, height: 20, collected: false });
+                }
+
+                // Add Math Gates
+                if (i === 3 || i === 7 || i === 12) {
+                    gates.push({
+                        x: currentX + 30,
+                        y: currentY - 70,
+                        width: 30,
+                        height: 70,
+                        cleared: false,
+                        question: generateMathQuestion(lvl)
+                    });
+                }
+            }
+
+            // Flying Pills on specific levels (3, 5, 8, 10, 13, 15, 18, 20, 25, 30)
+            if ([3, 5, 8, 10, 13, 15, 18, 20, 25, 30].includes(lvl)) {
+                flyingPills.push({ x: 300, y: currentY + 100, width: 24, height: 24, collected: false });
+            }
+
+            // Top Finish Portal
+            finishPortal = {
+                x: currentX + 40,
+                y: currentY - 90,
+                width: 50,
+                height: 90
+            };
+
+            robot.x = 50;
+            robot.y = currentY - 60;
+            robot.vx = 0;
+            robot.vy = 0;
+            robot.scale = 1.0;
+            robot.isFlying = false;
+        }
+
+        function generateMathQuestion(lvl) {
+            let a, b, op, ans, opts = [];
+            if (lvl <= 5) {
+                a = Math.floor(Math.random() * 5) + 1;
+                b = Math.floor(Math.random() * 5) + 1;
+                op = '+';
+                ans = a + b;
+            } else if (lvl <= 15) {
+                a = Math.floor(Math.random() * 10) + 1;
+                b = Math.floor(Math.random() * 8) + 1;
+                op = Math.random() > 0.5 ? '+' : '-';
+                if (op === '-' && a < b) [a, b] = [b, a];
+                ans = op === '+' ? a + b : a - b;
+            } else {
+                a = Math.floor(Math.random() * 15) + 5;
+                b = Math.floor(Math.random() * 12) + 1;
+                op = Math.random() > 0.5 ? '+' : '-';
+                if (op === '-' && a < b) [a, b] = [b, a];
+                ans = op === '+' ? a + b : a - b;
+            }
+
+            opts.push(ans);
+            while (opts.length < 4) {
+                let wrong = ans + (Math.floor(Math.random() * 7) - 3);
+                if (wrong >= 0 && !opts.includes(wrong)) opts.push(wrong);
+            }
+            opts.sort(() => Math.random() - 0.5);
+
+            return { text: `${a} ${op} ${b} = ?`, answer: ans, options: opts };
+        }
+
+        window.startGame = function() {
+            initAudio();
+            gameState = 'playing';
+            currentLevel = 1;
+            totalScore = 0;
+            levelScore = 0;
+            document.getElementById('menu-overlay')?.classList.add('hidden');
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            generateLevel(currentLevel);
+            updateHUD();
+        };
+
+        window.restartLevel = function() {
+            gameState = 'playing';
+            levelScore = 0;
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            generateLevel(currentLevel);
+            updateHUD();
+        };
+
+        window.nextLevel = function() {
+            currentLevel++;
+            if (currentLevel > 30) currentLevel = 1;
+            window.restartLevel();
+        };
+
+        function updateHUD() {
+            const hLvl = document.getElementById('hud-level');
+            const hScr = document.getElementById('hud-score');
+            if (hLvl) hLvl.innerText = currentLevel;
+            if (hScr) hScr.innerText = totalScore + levelScore;
+        }
+
+        function triggerMathQuiz(gate) {
+            gameState = 'quiz';
+            activeGate = gate;
+            const modal = document.getElementById('math-modal');
+            const qEl = document.getElementById('math-question');
+            const optsEl = document.getElementById('math-options');
+            const fbEl = document.getElementById('math-feedback');
+
+            if (!modal || !qEl || !optsEl) return;
+
+            qEl.innerText = gate.question.text;
+            optsEl.innerHTML = '';
+            if (fbEl) fbEl.innerText = '';
+
+            gate.question.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-cyber py-3 px-4 bg-slate-900 border border-cyan-400 rounded-xl font-pixel text-yellow-300 text-sm hover:bg-cyan-900';
+                btn.innerText = opt;
+                btn.onclick = () => handleQuizAnswer(opt, gate.question.answer);
+                optsEl.appendChild(btn);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function handleQuizAnswer(selected, correct) {
+            const fbEl = document.getElementById('math-feedback');
+            if (selected === correct) {
+                playSound('correct');
+                levelScore += 100;
+                if (fbEl) {
+                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-emerald-400';
+                    fbEl.innerText = 'BENAR! +100 POIN!';
+                }
+            } else {
+                playSound('wrong');
+                levelScore = Math.max(0, levelScore - 50);
+                if (fbEl) {
+                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-rose-400';
+                    fbEl.innerText = `KURANG TEPAT! Jawaban: ${correct} (-50 Poin)`;
+                }
+            }
+
+            if (activeGate) activeGate.cleared = true;
+            updateHUD();
+
+            setTimeout(() => {
+                document.getElementById('math-modal')?.classList.add('hidden');
+                gameState = 'playing';
+            }, 1000);
+        }
+
+        function triggerLevelComplete() {
+            gameState = 'win';
+            playSound('win');
+            totalScore += levelScore;
+
+            const modal = document.getElementById('win-modal');
+            const winScore = document.getElementById('win-score');
+            const winTotal = document.getElementById('win-total-score');
+            const themeName = document.getElementById('win-theme-name');
+
+            const currentTheme = levelThemes[(currentLevel - 1) % levelThemes.length];
+            if (themeName) themeName.innerText = currentTheme.name;
+            if (winScore) winScore.innerText = `+${levelScore}`;
+            if (winTotal) winTotal.innerText = totalScore;
+
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        window.addEventListener('keydown', (e) => {
+            initAudio();
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+            if ((e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w' || e.key === 'W') && !keys.jump) {
+                keys.jump = true;
+                handleJump();
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+            if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'w' || e.key === 'W') keys.jump = false;
+        });
+
+        function setupTouchControls() {
+            const btnLeft = document.getElementById('btn-left');
+            const btnRight = document.getElementById('btn-right');
+            const btnJump = document.getElementById('btn-jump');
+
+            if (btnLeft) {
+                btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); keys.left = true; });
+                btnLeft.addEventListener('touchend', () => { keys.left = false; });
+            }
+            if (btnRight) {
+                btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); keys.right = true; });
+                btnRight.addEventListener('touchend', () => { keys.right = false; });
+            }
+            if (btnJump) {
+                btnJump.addEventListener('touchstart', (e) => { e.preventDefault(); handleJump(); });
+            }
+        }
+
+        function handleJump() {
+            if (gameState !== 'playing') return;
+            if (robot.isFlying) {
+                robot.vy = -8;
+                playSound('jump');
+            } else if (robot.isGrounded || robot.jumpCount < robot.maxJumps) {
+                robot.vy = robot.jumpForce;
+                robot.isGrounded = false;
+                robot.jumpCount++;
+                playSound('jump');
+            }
+        }
+
+        function activateFlyingPill() {
+            robot.isFlying = true;
+            robot.flyTimeLeft = 30;
+            playSound('star');
+
+            const pillHud = document.getElementById('flying-pill-hud');
+            const pillTimer = document.getElementById('pill-timer');
+            if (pillHud) pillHud.classList.remove('hidden');
+
+            if (robot.flyInterval) clearInterval(robot.flyInterval);
+            robot.flyInterval = setInterval(() => {
+                robot.flyTimeLeft--;
+                if (pillTimer) pillTimer.innerText = robot.flyTimeLeft;
+                if (robot.flyTimeLeft <= 0) {
+                    clearInterval(robot.flyInterval);
+                    robot.isFlying = false;
+                    if (pillHud) pillHud.classList.add('hidden');
+                }
+            }, 1000);
+        }
+
+        function updatePhysics() {
+            if (gameState !== 'playing') return;
+
+            // Horizontal Movement
+            const moveSpeed = 5 * robot.speedMultiplier;
+            if (keys.left) {
+                robot.vx = -moveSpeed;
+                robot.facingRight = false;
+            } else if (keys.right) {
+                robot.vx = moveSpeed;
+                robot.facingRight = true;
+            } else {
+                robot.vx *= 0.8;
+            }
+
+            robot.x += robot.vx;
+
+            // Gravity & Vertical Movement
+            if (!robot.isFlying) {
+                robot.vy += 0.55; // Gravity
+            }
+            robot.y += robot.vy;
+
+            // Platform Collisions
+            robot.isGrounded = false;
+            const effectiveWidth = robot.width * robot.scale;
+            const effectiveHeight = robot.height * robot.scale;
+
+            platforms.forEach(plat => {
+                if (robot.x + effectiveWidth > plat.x &&
+                    robot.x < plat.x + plat.width &&
+                    robot.y + effectiveHeight >= plat.y &&
+                    robot.y + effectiveHeight <= plat.y + 15 &&
+                    robot.vy >= 0) {
+                    robot.y = plat.y - effectiveHeight;
+                    robot.vy = 0;
+                    robot.isGrounded = true;
+                    robot.jumpCount = 0;
+                }
+            });
+
+            // Fall Safety Net Reset
+            if (robot.y > 800) {
+                robot.x = 50;
+                robot.y = 300;
+                robot.vy = 0;
+            }
+
+            // Collect Stars (Growth Mechanic)
+            stars.forEach(star => {
+                if (!star.collected &&
+                    robot.x + effectiveWidth > star.x &&
+                    robot.x < star.x + star.width &&
+                    robot.y + effectiveHeight > star.y &&
+                    robot.y < star.y + star.height) {
+                    star.collected = true;
+                    levelScore += 20;
+                    robot.scale = Math.min(1.5, robot.scale + 0.05);
+                    playSound('star');
+                    updateHUD();
+                }
+            });
+
+            // Collect Flying Pills
+            flyingPills.forEach(pill => {
+                if (!pill.collected &&
+                    robot.x + effectiveWidth > pill.x &&
+                    robot.x < pill.x + pill.width &&
+                    robot.y + effectiveHeight > pill.y &&
+                    robot.y < pill.y + pill.height) {
+                    pill.collected = true;
+                    activateFlyingPill();
+                }
+            });
+
+            // Math Gate Collisions
+            gates.forEach(gate => {
+                if (!gate.cleared &&
+                    robot.x + effectiveWidth > gate.x &&
+                    robot.x < gate.x + gate.width &&
+                    robot.y + effectiveHeight > gate.y &&
+                    robot.y < gate.y + gate.height) {
+                    triggerMathQuiz(gate);
+                }
+            });
+
+            // Finish Portal Collision
+            if (robot.x + effectiveWidth > finishPortal.x &&
+                robot.x < finishPortal.x + finishPortal.width &&
+                robot.y + effectiveHeight > finishPortal.y &&
+                robot.y < finishPortal.y + finishPortal.height) {
+                triggerLevelComplete();
+            }
+
+            // Smooth Camera Follow
+            camera.x += (robot.x - canvas.width / 3 - camera.x) * 0.1;
+            camera.y += (robot.y - canvas.height / 2 - camera.y) * 0.1;
+        }
+
+        function drawBackground(theme) {
+            ctx.fillStyle = theme.bg || '#020617';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Sky gradient
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            skyGrad.addColorStop(0, theme.sky || '#0f172a');
+            skyGrad.addColorStop(1, theme.bg || '#020617');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Cyber grid lines
+            ctx.strokeStyle = (theme.accent || '#38bdf8') + '22';
+            ctx.lineWidth = 1;
+            const gridSize = 40;
+            const offsetX = -camera.x * 0.2 % gridSize;
+            const offsetY = -camera.y * 0.2 % gridSize;
+
+            ctx.beginPath();
+            for (let x = offsetX; x < canvas.width; x += gridSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+            }
+            for (let y = offsetY; y < canvas.height; y += gridSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+            }
+            ctx.stroke();
+        }
+
+        function drawPlatforms(theme) {
+            platforms.forEach(plat => {
+                ctx.fillStyle = plat.isSafeBase ? '#0f172a' : (theme.platform || '#1e293b');
+                ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
+
+                // Neon top edge highlight
+                ctx.fillStyle = theme.accent || '#38bdf8';
+                ctx.fillRect(plat.x, plat.y, plat.width, 4);
+
+                // Bevel border
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(plat.x, plat.y, plat.width, plat.height);
+            });
+        }
+
+        function drawRobot() {
+            ctx.save();
+            ctx.translate(robot.x + (robot.width * robot.scale) / 2, robot.y + (robot.height * robot.scale) / 2);
+
+            if (!robot.facingRight) {
+                ctx.scale(-1, 1);
+            }
+
+            const scale = robot.scale;
+            const w = robot.width * scale;
+            const h = robot.height * scale;
+
+            // Aura if flying
+            if (robot.isFlying) {
+                ctx.save();
+                ctx.shadowColor = '#ec4899';
+                ctx.shadowBlur = 20;
+                ctx.fillStyle = 'rgba(236, 72, 153, 0.3)';
+                ctx.beginPath();
+                ctx.arc(0, 0, w * 0.9, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Jetpack thruster flames
+            if (!robot.isGrounded || robot.isFlying) {
+                ctx.fillStyle = robot.isFlying ? '#ec4899' : '#f59e0b';
+                ctx.beginPath();
+                ctx.moveTo(-w * 0.2, h * 0.4);
+                ctx.lineTo(0, h * 0.7 + Math.random() * 8);
+                ctx.lineTo(w * 0.2, h * 0.4);
+                ctx.fill();
+            }
+
+            // Robot Body (Armor)
+            ctx.fillStyle = robot.color || '#06b6d4';
+            ctx.fillRect(-w * 0.4, -h * 0.1, w * 0.8, h * 0.5);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-w * 0.4, -h * 0.1, w * 0.8, h * 0.5);
+
+            // Arc Reactor / Chest Core
+            ctx.fillStyle = '#facc15';
+            ctx.beginPath();
+            ctx.arc(0, h * 0.15, w * 0.15, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Head (OLED Monitor)
+            const headW = w * 0.7;
+            const headH = h * 0.4;
+            const headY = -h * 0.45;
+
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(-headW / 2, headY, headW, headH);
+            ctx.strokeStyle = robot.color || '#06b6d4';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-headW / 2, headY, headW, headH);
+
+            // Screen Face Expressions
+            ctx.fillStyle = robot.isFlying ? '#f472b6' : '#38bdf8';
+            ctx.font = `bold ${Math.max(10, 12 * scale)}px Orbitron, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const faceText = robot.isFlying ? '★ ★' : (robot.faceExpression || '^ ^');
+            ctx.fillText(faceText, 0, headY + headH / 2);
+
+            // Antenna
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, headY);
+            ctx.lineTo(0, headY - 8);
+            ctx.stroke();
+
+            ctx.fillStyle = '#ef4444';
+            ctx.beginPath();
+            ctx.arc(0, headY - 10, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function render() {
+            if (!ctx) return;
+            const theme = levelThemes[(currentLevel - 1) % levelThemes.length];
+
+            drawBackground(theme);
+
+            ctx.save();
+            ctx.translate(-camera.x, -camera.y);
+
+            drawPlatforms(theme);
+
+            // Render Stars
+            stars.forEach(star => {
+                if (star.collected) return;
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath();
+                ctx.arc(star.x + star.width / 2, star.y + star.height / 2, star.width / 2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Render Flying Pills
+            flyingPills.forEach(pill => {
+                if (pill.collected) return;
+                ctx.fillStyle = '#ec4899';
+                ctx.beginPath();
+                ctx.arc(pill.x + pill.width / 2, pill.y + pill.height / 2, pill.width / 2, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Render Math Gates
+            gates.forEach(gate => {
+                if (gate.cleared) return;
+                ctx.fillStyle = 'rgba(239, 68, 68, 0.7)';
+                ctx.fillRect(gate.x, gate.y, gate.width, gate.height);
+                ctx.strokeStyle = '#f87171';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(gate.x, gate.y, gate.width, gate.height);
+            });
+
+            // Render Finish Portal
+            ctx.fillStyle = '#10b981';
+            ctx.fillRect(finishPortal.x, finishPortal.y, finishPortal.width, finishPortal.height);
+            ctx.strokeStyle = '#6ee7b7';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(finishPortal.x, finishPortal.y, finishPortal.width, finishPortal.height);
+
+            drawRobot();
+
+            ctx.restore();
+        }
+
+        function gameLoop() {
+            updatePhysics();
+            render();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function checkOrientation() {
+            const warning = document.getElementById('portrait-warning');
+            if (!warning) return;
+            if (window.innerHeight > window.innerWidth) {
+                warning.classList.remove('hidden');
+            } else {
+                warning.classList.add('hidden');
+            }
+        }
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            if (canvas) {
+                ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', () => {
+                if (canvas) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                checkOrientation();
+            });
+
+            checkOrientation();
+            setupTouchControls();
+            generateLevel(1);
+            requestAnimationFrame(gameLoop);
+        };
+    </script>
+</body>
+</html>
