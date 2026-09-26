@@ -13,7 +13,8 @@
     <meta name="apple-mobile-web-app-title" content="RoboCore">
     <meta name="description" content="ROBO-CORE: MATH MATRIX - Game Edukasi Matematika Arcade Futuristik">
 
-    <link rel="manifest" href='data:application/manifest+json,{"name":"ROBO-CORE: Math Matrix","short_name":"RoboCore","description":"Game Edukasi Matematika Arcade Futuristik","start_url":".","display":"standalone","orientation":"landscape","background_color":"#020617","theme_color":"#020617","icons":[{"src":"https://placehold.co/192x192/020617/38bdf8?text=ROBO","sizes":"192x192","type":"image/png"},{"src":"https://placehold.co/512x512/020617/38bdf8?text=ROBO","sizes":"512x512","type":"image/png"}]}'>
+    <!-- Web App Manifest -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"ROBO-CORE: Math Matrix","short_name":"RoboCore","description":"Game Edukasi Matematika Arcade Futuristik","start_url":".","display":"standalone","orientation":"landscape","background_color":"#020617","theme_color":"#020617","icons":[{"src":"https://placehold.co/192x192/020617/38bdf8?text=ROBO","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"https://placehold.co/512x512/020617/38bdf8?text=ROBO","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}'>
 
     <!-- Tailwind CSS & FontAwesome CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,20 +41,15 @@
             height: 100vh;
         }
 
-        .font-cyber {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .font-pixel {
-            font-family: 'Press Start 2P', cursive;
-        }
+        .font-cyber { font-family: 'Orbitron', sans-serif; }
+        .font-pixel { font-family: 'Press Start 2P', cursive; }
 
         .cyber-glass-panel {
-            background: rgba(15, 23, 42, 0.88);
+            background: rgba(15, 23, 42, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1.5px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 12px rgba(56, 189, 248, 0.15);
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(56, 189, 248, 0.15);
         }
 
         .cyber-card {
@@ -84,15 +80,6 @@
             pointer-events: none;
         }
 
-        @keyframes cyber-glow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8)); }
-            50% { filter: drop-shadow(0 0 22px rgba(236, 72, 153, 0.9)); }
-        }
-
-        .animate-cyber-glow {
-            animation: cyber-glow 2.5s infinite ease-in-out;
-        }
-
         canvas {
             display: block;
             touch-action: none;
@@ -108,23 +95,24 @@
             animation: rotate-phone 2.5s infinite ease-in-out;
         }
 
-        @keyframes pulse-portal {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.8)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(52, 211, 153, 1)); }
-        }
-
-        .animate-portal {
-            animation: pulse-portal 2s infinite ease-in-out;
-        }
-
-        /* ANIMASI MELAYANG ROBOT MENU UTAMA */
         @keyframes float-robot {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(1.5deg); }
+            50% { transform: translateY(-10px) rotate(1.5deg); }
         }
 
         .animate-float-robot {
             animation: float-robot 3s ease-in-out infinite;
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -148,22 +136,19 @@
     </div>
 
     <!-- START / MENU OVERLAY -->
-    <div id="menu-overlay" class="fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-xl flex flex-col justify-center items-center p-4">
-        <div class="cyber-glass-panel w-full max-w-lg p-5 md:p-7 rounded-3xl border-2 border-cyan-400/50 shadow-2xl text-center relative overflow-hidden">
+    <div id="menu-overlay" class="fixed inset-0 z-40 bg-slate-950/95 backdrop-blur-xl flex flex-col justify-center items-center p-3 md:p-4 overflow-y-auto">
+        <div class="cyber-glass-panel w-full max-w-xl p-4 md:p-6 rounded-3xl border-2 border-cyan-400/50 shadow-2xl text-center relative overflow-hidden my-auto">
             <div class="absolute -top-12 -right-12 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl"></div>
 
-            <div class="inline-flex items-center space-x-2 bg-slate-900/80 px-4 py-1.5 rounded-full text-cyan-300 text-xs font-cyber font-bold mb-2 border border-cyan-500/40 tracking-widest">
+            <div class="inline-flex items-center space-x-2 bg-slate-900/80 px-3 py-1 rounded-full text-cyan-300 text-[11px] font-cyber font-bold mb-2 border border-cyan-500/40 tracking-widest">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>SYSTEM ONLINE • 30 MATRIX LEVELS</span>
+                <span>SYSTEM ONLINE • CYBER CHEST MISSIONS</span>
             </div>
 
-            <!-- MASKOT ROBOT FUTURISTIK (SVG VECTOR INTERAKTIF) -->
-            <div class="relative w-24 h-24 md:w-32 md:h-32 mx-auto my-2 animate-float-robot">
-                <!-- Glowing Aura Layer -->
+            <!-- MASKOT ROBOT FUTURISTIK -->
+            <div class="relative w-20 h-20 md:w-24 md:h-24 mx-auto my-1 animate-float-robot">
                 <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/50 via-sky-400/30 to-pink-500/50 rounded-full blur-xl animate-pulse"></div>
-                
-                <!-- Robot Mascot SVG Graphic -->
                 <svg viewBox="0 0 120 120" class="w-full h-full relative z-10 filter drop-shadow-[0_0_18px_rgba(6,182,212,0.85)]">
                     <defs>
                         <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -180,78 +165,84 @@
                             <stop offset="100%" stop-color="#eab308" />
                         </linearGradient>
                     </defs>
-
-                    <!-- Antena Signal LED -->
                     <line x1="60" y1="22" x2="60" y2="12" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
                     <circle cx="60" cy="10" r="4" fill="#ef4444" class="animate-ping" style="animation-duration: 1.5s;" />
                     <circle cx="60" cy="10" r="4" fill="#f87171" />
-
-                    <!-- Pelindung Telinga / Baut Samping -->
                     <rect x="25" y="31" width="8" height="15" rx="3" fill="#38bdf8" />
                     <rect x="87" y="31" width="8" height="15" rx="3" fill="#38bdf8" />
-
-                    <!-- Kepala Robot -->
                     <rect x="31" y="20" width="58" height="38" rx="12" fill="url(#bodyGrad)" stroke="#7dd3fc" stroke-width="2" />
-
-                    <!-- Layar Visor OLED Futuristik -->
                     <rect x="37" y="26" width="46" height="26" rx="8" fill="url(#visorGrad)" stroke="#38bdf8" stroke-width="1.5" />
-
-                    <!-- Mata Expresi Robot Cyber (^ ^) -->
                     <path d="M 45 40 Q 50 31 53 40" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" fill="none" />
                     <path d="M 67 40 Q 70 31 75 40" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" fill="none" />
-
-                    <!-- Sendi Leher -->
                     <rect x="52" y="58" width="16" height="6" rx="2" fill="#475569" />
-
-                    <!-- Armor Dada Robot -->
                     <path d="M 33 64 L 87 64 L 81 102 L 39 102 Z" fill="url(#bodyGrad)" stroke="#7dd3fc" stroke-width="2" />
-
-                    <!-- Bahu Baju Armor -->
                     <circle cx="27" cy="70" r="8" fill="#0284c7" stroke="#7dd3fc" stroke-width="1.5" />
                     <circle cx="93" cy="70" r="8" fill="#0284c7" stroke="#7dd3fc" stroke-width="1.5" />
-
-                    <!-- Core Inti Energi Arc Reactor -->
                     <circle cx="60" cy="80" r="10" fill="url(#coreGrad)" />
                     <circle cx="60" cy="80" r="5" fill="#ffffff" class="animate-pulse" />
-
-                    <!-- Garis Sirkuit Dada -->
                     <path d="M 43 72 L 49 72 M 77 72 L 71 72" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
-
-                    <!-- Sorot Energi Jet Engine Bawah -->
                     <ellipse cx="60" cy="106" rx="14" ry="4" fill="#f472b6" class="animate-pulse" />
                     <polygon points="50,106 60,118 70,106" fill="#ec4899" opacity="0.85" />
                 </svg>
             </div>
 
-            <!-- Epic Main Title -->
-            <h1 class="text-3xl md:text-5xl font-black font-cyber text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-pink-400 mb-1 tracking-wider filter drop-shadow-[0_2px_10px_rgba(6,182,212,0.6)]">
+            <!-- Title -->
+            <h1 class="text-2xl md:text-4xl font-black font-cyber text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-pink-400 mb-0.5 tracking-wider filter drop-shadow-[0_2px_10px_rgba(6,182,212,0.6)]">
                 ROBO-CORE
             </h1>
-            <div class="text-xs md:text-sm font-cyber font-bold tracking-[0.3em] text-yellow-400 mb-5">
+            <div class="text-[11px] md:text-xs font-cyber font-bold tracking-[0.3em] text-yellow-400 mb-3">
                 MATH MATRIX ADVENTURE
             </div>
 
-            <div class="space-y-3 max-w-xs mx-auto">
-                <button onclick="startGame()" class="btn-cyber w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 rounded-2xl font-cyber font-black text-lg text-white shadow-xl border border-emerald-300/60 flex justify-center items-center space-x-3 tracking-wider">
-                    <i class="fa-solid fa-play text-xl"></i>
-                    <span>MULAI MAIN</span>
-                </button>
-
-                <button id="btn-pwa-install" onclick="installPWAApp()" class="btn-cyber w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 rounded-2xl font-bold text-slate-950 shadow-lg border border-yellow-200 flex justify-center items-center space-x-2">
-                    <i class="fa-solid fa-download text-lg"></i>
-                    <span>INSTALL APP / APK</span>
-                </button>
-
-                <button onclick="openWorkshop()" class="btn-cyber w-full py-3 bg-slate-900/90 hover:bg-slate-800 rounded-2xl font-cyber font-bold text-xs md:text-sm text-cyan-300 border border-slate-700 flex justify-center items-center space-x-2 tracking-wider">
-                    <i class="fa-solid fa-wrench text-yellow-400"></i>
-                    <span>BENGKEL MODIFIKASI</span>
-                </button>
+            <!-- INPUT NAMA OPERATOR -->
+            <div class="max-w-xs mx-auto mb-3">
+                <label class="block text-left text-[10px] font-cyber text-cyan-300 mb-1 tracking-wider uppercase flex justify-between">
+                    <span><i class="fa-solid fa-id-card text-yellow-400 mr-1"></i> Nama Operator Cyber:</span>
+                    <span id="name-status-msg" class="text-rose-400 hidden">*Wajib diisi</span>
+                </label>
+                <div class="relative">
+                    <input id="player-name-input" type="text" maxlength="15" placeholder="Masukkan Nama Kamu..." 
+                           class="w-full bg-slate-900/90 border-2 border-cyan-400/60 rounded-xl px-3 py-2 text-yellow-300 font-cyber text-xs md:text-sm text-center focus:outline-none focus:border-yellow-400 shadow-inner tracking-wider uppercase transition-all" />
+                    <button onclick="savePlayerNameFromInput()" class="absolute right-2 top-1.5 text-xs text-cyan-400 hover:text-white px-2 py-1 rounded bg-slate-800 border border-slate-700">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="mt-6 text-[11px] text-slate-400 flex justify-center items-center space-x-3">
-                <span><i class="fa-solid fa-keyboard text-cyan-400 mr-1"></i> [A][D] / [←][→] Gerak</span>
-                <span>•</span>
-                <span><i class="fa-solid fa-arrow-up text-amber-400 mr-1"></i> [SPACE] Lompat</span>
+            <!-- HIGH SCORE & PROGRES STATS PANEL -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-2 mb-3 grid grid-cols-2 gap-2 text-xs font-cyber max-w-sm mx-auto">
+                <div class="bg-slate-950/60 p-1.5 rounded-xl border border-amber-500/30 flex items-center justify-between">
+                    <span class="text-slate-400 text-[10px]"><i class="fa-solid fa-crown text-amber-400 mr-1"></i>HIGH SCORE:</span>
+                    <span id="menu-high-score" class="font-bold text-amber-300 text-xs md:text-sm">0</span>
+                </div>
+                <div class="bg-slate-950/60 p-1.5 rounded-xl border border-cyan-500/30 flex items-center justify-between">
+                    <span class="text-slate-400 text-[10px]"><i class="fa-solid fa-unlock text-cyan-400 mr-1"></i>MAX LEVEL:</span>
+                    <span id="menu-max-level" class="font-bold text-cyan-300 text-xs md:text-sm">1/30</span>
+                </div>
+            </div>
+
+            <!-- MENU BUTTONS -->
+            <div class="space-y-2 max-w-xs mx-auto">
+                <button id="btn-continue" onclick="resumeGame()" class="hidden btn-cyber w-full py-2.5 bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 rounded-2xl font-cyber font-black text-xs md:text-sm text-slate-950 shadow-xl border border-amber-200 flex justify-center items-center space-x-2 tracking-wider">
+                    <i class="fa-solid fa-forward"></i>
+                    <span>LANJUTKAN (LEVEL <span id="btn-continue-lvl">1</span>)</span>
+                </button>
+
+                <button onclick="startNewGame()" class="btn-cyber w-full py-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 rounded-2xl font-cyber font-black text-xs md:text-sm text-white shadow-xl border border-emerald-300/60 flex justify-center items-center space-x-2 tracking-wider">
+                    <i class="fa-solid fa-play"></i>
+                    <span>MAIN DARI LEVEL 1</span>
+                </button>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="openLeaderboardModal()" class="btn-cyber py-2 bg-slate-900 hover:bg-slate-800 rounded-xl font-cyber font-bold text-[11px] text-amber-300 border border-amber-500/50 flex justify-center items-center space-x-1.5 tracking-wider">
+                        <i class="fa-solid fa-trophy text-amber-400"></i>
+                        <span>TOP 10 LIVE</span>
+                    </button>
+                    <button onclick="openWorkshop()" class="btn-cyber py-2 bg-slate-900 hover:bg-slate-800 rounded-xl font-cyber font-bold text-[11px] text-cyan-300 border border-slate-700 flex justify-center items-center space-x-1.5 tracking-wider">
+                        <i class="fa-solid fa-wrench text-yellow-400"></i>
+                        <span>BENGKEL</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -259,34 +250,49 @@
     <!-- TOP HEADER / HUD -->
     <header class="w-full max-w-6xl px-3 py-2 z-20 flex justify-between items-center cyber-glass-panel rounded-b-2xl shadow-xl border-t-0">
         <div class="flex items-center space-x-2 md:space-x-3">
-            <div class="bg-slate-900/90 px-3 py-1.5 rounded-xl border border-cyan-500/40 flex items-center space-x-2">
+            <div class="bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-cyan-500/40 flex items-center space-x-2">
                 <i class="fa-solid fa-layer-group text-cyan-400 text-xs md:text-sm"></i>
-                <span class="font-cyber font-bold text-xs md:text-sm tracking-wider">LEVEL <span id="hud-level" class="text-yellow-300 text-sm md:text-base">1</span><span class="text-slate-500 text-xs">/30</span></span>
+                <span class="font-cyber font-bold text-xs md:text-sm tracking-wider">LVL <span id="hud-level" class="text-yellow-300 text-sm md:text-base">1</span><span class="text-slate-500 text-xs">/30</span></span>
             </div>
-            <div class="bg-slate-900/90 px-3 py-1.5 rounded-xl border border-amber-500/40 flex items-center space-x-2">
+            <div class="bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-amber-500/40 flex items-center space-x-2">
                 <i class="fa-solid fa-trophy text-amber-400 text-xs md:text-sm"></i>
                 <span class="font-cyber font-bold text-xs md:text-sm tracking-wider"><span id="hud-score" class="text-white text-sm md:text-base">0</span> <span class="text-amber-400 text-[10px]">PTS</span></span>
+            </div>
+            
+            <!-- MISSION COUNTER BADGE -->
+            <div class="bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-cyan-500/40 flex items-center space-x-1.5">
+                <i class="fa-solid fa-book text-yellow-400 text-xs md:text-sm"></i>
+                <span class="font-cyber font-bold text-xs md:text-sm tracking-wider">SOAL: <span id="hud-missions" class="text-yellow-400 font-bold">0/0</span></span>
+            </div>
+
+            <!-- HEALTH / SHIELD BAR -->
+            <div class="bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-rose-500/40 flex items-center space-x-1.5">
+                <i class="fa-solid fa-shield-halved text-rose-400 text-xs"></i>
+                <div id="hud-hearts" class="flex space-x-1 text-rose-500 text-xs md:text-sm">
+                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
             </div>
         </div>
 
         <div id="flying-pill-hud" class="hidden flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 px-3.5 py-1.5 rounded-xl border border-pink-300 animate-bounce shadow-lg">
             <i class="fa-solid fa-rocket text-yellow-300 text-sm"></i>
-            <span class="font-cyber font-bold text-xs md:text-sm text-white">JETPACK: <span id="pill-timer" class="text-yellow-200">30</span>s</span>
+            <span class="font-cyber font-bold text-xs md:text-sm text-white">SUPER JETPACK: <span id="pill-timer" class="text-yellow-200">35</span>s</span>
         </div>
 
         <div class="flex items-center space-x-2">
-            <button id="btn-pwa-hud" onclick="installPWAApp()" class="hidden btn-cyber bg-amber-500 hover:bg-amber-400 px-2.5 py-1.5 rounded-xl border border-amber-300 text-slate-950 font-bold text-xs flex items-center space-x-1">
-                <i class="fa-solid fa-download"></i>
-                <span class="hidden sm:inline">INSTALL</span>
+            <button onclick="openLeaderboardModal()" class="btn-cyber bg-amber-950/80 hover:bg-amber-900 p-2 rounded-xl border border-amber-500/50 text-amber-300">
+                <i class="fa-solid fa-ranking-star text-xs md:text-sm"></i>
             </button>
-            <button onclick="toggleAudio()" class="btn-cyber bg-slate-900/90 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-amber-400">
-                <i id="sound-icon" class="fa-solid fa-volume-high text-sm md:text-base"></i>
+            <button onclick="toggleAudio()" class="btn-cyber bg-slate-900/90 hover:bg-slate-800 p-2 rounded-xl border border-slate-700 text-amber-400">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-xs md:text-sm"></i>
             </button>
-            <button onclick="openWorkshop()" class="btn-cyber bg-cyan-950 hover:bg-cyan-900 p-2.5 rounded-xl border border-cyan-500/50 text-cyan-300">
-                <i class="fa-solid fa-wrench text-sm md:text-base"></i>
+            <button onclick="openWorkshop()" class="btn-cyber bg-cyan-950 hover:bg-cyan-900 p-2 rounded-xl border border-cyan-500/50 text-cyan-300">
+                <i class="fa-solid fa-wrench text-xs md:text-sm"></i>
             </button>
-            <button onclick="restartLevel()" class="btn-cyber bg-rose-950 hover:bg-rose-900 p-2.5 rounded-xl border border-rose-500/50 text-rose-300">
-                <i class="fa-solid fa-rotate-right text-sm md:text-base"></i>
+            <button onclick="restartLevel()" class="btn-cyber bg-rose-950 hover:bg-rose-900 p-2 rounded-xl border border-rose-500/50 text-rose-300">
+                <i class="fa-solid fa-rotate-right text-xs md:text-sm"></i>
             </button>
         </div>
     </header>
@@ -318,14 +324,14 @@
     <div id="math-modal" class="hidden fixed inset-0 z-40 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
         <div class="cyber-glass-panel w-full max-w-lg p-6 rounded-3xl border-2 border-cyan-400 shadow-2xl text-center">
             <div class="inline-flex items-center space-x-2 bg-cyan-950/80 px-4 py-1 rounded-full text-cyan-300 text-xs font-cyber font-bold mb-2 border border-cyan-400/50 tracking-wider">
-                <i class="fa-solid fa-microchip text-yellow-400"></i>
-                <span>CYBER TERMINAL • SECURITY GATE</span>
+                <i class="fa-solid fa-book text-yellow-400"></i>
+                <span id="math-mission-title">TERMINAL BUKU MATEMATIKA</span>
             </div>
             
-            <h3 class="text-lg md:text-xl font-cyber font-bold text-white mb-1">Pecahkan Kode Matriks!</h3>
-            <p class="text-xs text-slate-300 mb-3">Jawab tepat untuk membuka gerbang energi dan klaim poin ekstra.</p>
+            <h3 class="text-lg md:text-xl font-cyber font-bold text-white mb-1">Pecahkan Soal Matematika!</h3>
+            <p class="text-xs text-slate-300 mb-2">Jawab soal dengan benar untuk membuka Peti Kunci Energi di puncak level!</p>
 
-            <div id="math-question" class="bg-slate-950/90 py-4 px-4 rounded-2xl border-2 border-amber-400/80 font-pixel text-yellow-300 text-base md:text-lg my-3 shadow-inner flex justify-center items-center min-h-[68px] tracking-wide">
+            <div id="math-question" class="bg-slate-950/90 py-4 px-4 rounded-2xl border-2 border-amber-400/80 font-pixel text-yellow-300 text-base md:text-lg my-3 shadow-inner flex justify-center items-center min-h-[72px] tracking-wide leading-relaxed">
                 5 + 7 = ?
             </div>
 
@@ -334,39 +340,89 @@
         </div>
     </div>
 
-    <!-- LEVEL COMPLETE MODAL -->
-    <div id="win-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
-        <div class="cyber-glass-panel w-full max-w-md p-6 rounded-3xl border-2 border-amber-400 shadow-2xl text-center relative overflow-hidden">
-            <div class="w-16 h-16 mx-auto mb-2 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex justify-center items-center shadow-lg border border-yellow-100">
-                <i class="fa-solid fa-trophy text-slate-950 text-3xl"></i>
+    <!-- GAME OVER MODAL (MUST RETRY OR RETURN TO MENU) -->
+    <div id="gameover-modal" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-md p-6 rounded-3xl border-2 border-rose-500 shadow-2xl text-center relative my-auto">
+            <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 flex justify-center items-center shadow-lg border border-rose-300 text-white text-3xl animate-bounce">
+                <i class="fa-solid fa-skull-crossbones"></i>
             </div>
 
-            <h2 class="text-2xl md:text-3xl font-cyber font-black text-white tracking-wider mb-0.5">LEVEL CLEARED!</h2>
-            <p id="win-theme-name" class="text-cyan-300 font-cyber text-xs md:text-sm font-bold mb-3">Cyber City Mastered</p>
+            <h2 class="text-2xl md:text-3xl font-cyber font-black text-rose-400 tracking-wider mb-1">SYSTEM OVERLOAD!</h2>
+            <p class="text-xs text-slate-300 font-cyber mb-4">Robot mengalami kerusakan atau jatuh ke Jurang Matriks!</p>
 
-            <div class="flex justify-center space-x-3 my-2 text-3xl">
-                <i id="star-1" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
-                <i id="star-2" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
-                <i id="star-3" class="fa-solid fa-star text-yellow-400 filter drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"></i>
+            <div class="bg-slate-950/90 p-3 rounded-2xl border border-slate-800 my-3 space-y-1.5 text-xs font-cyber max-w-xs mx-auto">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Level Gagal:</span>
+                    <span id="go-level" class="font-bold text-yellow-300">Level 1</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Total Skor Saat Ini:</span>
+                    <span id="go-score" class="font-bold text-cyan-300">0 PTS</span>
+                </div>
             </div>
 
-            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 my-4 space-y-2 text-xs md:text-sm font-cyber">
+            <div class="flex justify-center space-x-3 mt-4">
+                <button onclick="returnToMenu()" class="btn-cyber px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-2xl font-cyber font-bold text-white text-xs md:text-sm shadow-xl flex items-center space-x-1.5">
+                    <i class="fa-solid fa-house"></i>
+                    <span>MENU UTAMA</span>
+                </button>
+                <button onclick="restartLevel()" class="btn-cyber px-5 py-3 bg-gradient-to-r from-rose-600 to-red-500 border border-rose-300 rounded-2xl font-cyber font-black text-white text-xs md:text-sm shadow-xl flex items-center space-x-2 tracking-wider">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>COBA LAGI</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEVEL COMPLETE MODAL WITH LIVE LEADERBOARD -->
+    <div id="win-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4 overflow-y-auto">
+        <div class="cyber-glass-panel w-full max-w-lg p-5 rounded-3xl border-2 border-amber-400 shadow-2xl text-center relative max-h-[90vh] overflow-y-auto custom-scroll my-auto">
+            <div class="w-14 h-14 mx-auto mb-1 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex justify-center items-center shadow-lg border border-yellow-100">
+                <i class="fa-solid fa-box-open text-slate-950 text-2xl"></i>
+            </div>
+
+            <h2 class="text-2xl font-cyber font-black text-white tracking-wider mb-0.5">PETI KUNCI TERBUKA!</h2>
+            <p id="win-theme-name" class="text-cyan-300 font-cyber text-xs font-bold mb-2">Cyber City Mastered</p>
+
+            <div class="bg-slate-950/80 p-3 rounded-2xl border border-slate-800 my-2 space-y-1.5 text-xs font-cyber max-w-xs mx-auto">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Pemain:</span>
+                    <span id="win-player-name" class="font-bold text-cyan-300">CYBER AGENT</span>
+                </div>
                 <div class="flex justify-between">
                     <span class="text-slate-400">Bonus Selesai Level:</span>
                     <span id="win-score" class="font-bold text-yellow-300">+350</span>
                 </div>
-                <div class="flex justify-between border-t border-slate-800 pt-1.5">
+                <div class="flex justify-between border-t border-slate-800 pt-1">
                     <span class="text-slate-300">Total Skor Akumulasi:</span>
                     <span id="win-total-score" class="font-bold text-emerald-400 text-sm">1250</span>
                 </div>
+                <div id="win-new-record" class="hidden border-t border-amber-500/30 pt-1 text-center text-amber-300 font-bold animate-pulse text-[11px]">
+                    ★ REKOR HIGH SCORE BARU DIUNGGAH KE CLOUD! ★
+                </div>
             </div>
 
-            <div class="flex justify-center space-x-3">
-                <button onclick="restartLevel()" class="btn-cyber px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-white text-xs md:text-sm flex items-center space-x-1.5">
-                    <i class="fa-solid fa-rotate-right"></i>
-                    <span>ULANG</span>
+            <!-- REALTIME LEADERBOARD SECTION IN WIN MODAL -->
+            <div class="mt-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-3 text-left">
+                <div class="flex justify-between items-center mb-2 pb-1 border-b border-slate-800">
+                    <span class="font-cyber font-bold text-xs text-yellow-400 flex items-center">
+                        <i class="fa-solid fa-ranking-star mr-1.5 text-amber-400"></i> TOP 10 GLOBAL LEADERBOARD
+                    </span>
+                    <span class="text-[10px] text-emerald-400 font-cyber flex items-center">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1"></span> LIVE
+                    </span>
+                </div>
+                <div id="win-leaderboard-container" class="space-y-1 max-h-36 overflow-y-auto custom-scroll pr-1">
+                    <div class="text-center text-xs text-slate-500 py-2">Memuat Papan Peringkat...</div>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-3 mt-4">
+                <button onclick="returnToMenu()" class="btn-cyber px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-white text-xs flex items-center space-x-1">
+                    <i class="fa-solid fa-house"></i>
+                    <span>MENU UTAMA</span>
                 </button>
-                <button id="btn-next-level" onclick="nextLevel()" class="btn-cyber px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 border border-emerald-300 rounded-xl font-cyber font-black text-white text-xs md:text-sm shadow-xl flex items-center space-x-2 tracking-wider">
+                <button id="btn-next-level" onclick="nextLevel()" class="btn-cyber px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 border border-emerald-300 rounded-xl font-cyber font-black text-white text-xs shadow-xl flex items-center space-x-2 tracking-wider">
                     <span>LEVEL SELANJUTNYA</span>
                     <i class="fa-solid fa-circle-arrow-right"></i>
                 </button>
@@ -374,9 +430,32 @@
         </div>
     </div>
 
-    <!-- ROBOT WORKSHOP MODAL -->
+    <!-- STANDALONE LEADERBOARD MODAL -->
+    <div id="leaderboard-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-md p-5 rounded-3xl border-2 border-amber-400 shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="closeLeaderboardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2 class="text-lg font-cyber font-black text-amber-300 flex items-center space-x-2 mb-3 tracking-wider">
+                <i class="fa-solid fa-trophy text-yellow-400"></i>
+                <span>CYBER MATRIX LEADERBOARD</span>
+            </h2>
+            <p class="text-xs text-slate-400 mb-3 font-cyber">10 Skor Tertinggi Realtime Seluruh Pemain Global</p>
+
+            <div id="standalone-leaderboard-container" class="space-y-1.5 flex-1 overflow-y-auto custom-scroll pr-1 bg-slate-950/80 p-3 rounded-2xl border border-slate-800">
+                <div class="text-center text-xs text-slate-500 py-4">Memuat data papan peringkat...</div>
+            </div>
+
+            <button onclick="closeLeaderboardModal()" class="mt-4 btn-cyber w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-cyber font-bold text-xs rounded-xl border border-slate-600">
+                TUTUP
+            </button>
+        </div>
+    </div>
+
+    <!-- WORKSHOP MODAL -->
     <div id="workshop-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
-        <div class="cyber-glass-panel w-full max-w-lg p-6 rounded-3xl border-2 border-cyan-400 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div class="cyber-glass-panel w-full max-w-lg p-6 rounded-3xl border-2 border-cyan-400 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scroll">
             <button onclick="closeWorkshop()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -398,94 +477,876 @@
                     </div>
                 </div>
 
-    <div id="ios-install-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
-        <div class="cyber-glass-panel w-full max-w-md p-6 rounded-3xl border-2 border-amber-400 shadow-2xl text-center relative">
-            <button onclick="closeIosInstallModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="w-14 h-14 mx-auto mb-3 bg-amber-500/20 rounded-2xl flex justify-center items-center border border-amber-400 text-amber-400 text-2xl">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
-            </div>
-            <h3 class="text-xl font-cyber font-bold text-yellow-300 mb-2">PANDUAN INSTALL (iOS / iPhone)</h3>
-            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-                Di Safari iOS, Anda dapat memasang game ini ke Layar Utama (*Home Screen*) tanpa App Store:
-            </p>
-            <div class="bg-slate-900/90 p-4 rounded-xl text-left text-xs space-y-2 border border-slate-700 font-sans">
-                <div class="flex items-center space-x-2">
-                    <span class="bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">1</span>
-                    <span>Tekan tombol <b>Bagikan (Share)</b> <i class="fa-solid fa-share-from-square text-cyan-400"></i> di Safari.</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <span class="bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">2</span>
-                    <span>Pilih opsi <b>"Tambahkan ke Layar Utama"</b> (*Add to Home Screen*).</span>
+                <div class="cyber-card p-3.5 rounded-2xl">
+                    <h4 class="font-bold text-xs text-cyan-300 mb-2 font-cyber"><i class="fa-solid fa-microchip mr-1"></i> Upgrade Kecepatan CPU</h4>
+                    <div class="space-y-1.5">
+                        <button onclick="upgradeCPU('v1', 1.0)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-cyber flex justify-between items-center border border-slate-700">
+                            <span>Core Standard (1.0x)</span>
+                            <span class="text-emerald-400">Aktif</span>
+                        </button>
+                        <button onclick="upgradeCPU('v2', 1.3)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-cyber flex justify-between items-center border border-slate-700">
+                            <span>Turbo Core (1.3x)</span>
+                            <span class="text-yellow-400">Boost</span>
+                        </button>
+                        <button onclick="upgradeCPU('v3', 1.6)" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-cyber flex justify-between items-center border border-slate-700">
+                            <span>Overclock (1.6x)</span>
+                            <span class="text-pink-400">Max</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <button onclick="closeIosInstallModal()" class="mt-5 btn-cyber px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl">
-                MENGERTI
-            </button>
+
+            <!-- RESET DATA CONFIRMATION -->
+            <div id="reset-confirm-box" class="hidden mt-4 p-3 bg-rose-950/80 border border-rose-500 rounded-2xl text-center space-y-2">
+                <p class="text-xs font-cyber text-rose-300">Yakin ingin menghapus seluruh progres game lokal?</p>
+                <div class="flex justify-center space-x-2">
+                    <button onclick="confirmResetProgress()" class="px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-lg">YA, HAPUS</button>
+                    <button onclick="cancelResetProgress()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-lg">BATAL</button>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center">
+                <span class="text-xs text-slate-400">Reset Progres Lokal?</span>
+                <button onclick="showResetConfirm()" class="px-3 py-1.5 bg-rose-950/80 hover:bg-rose-900 border border-rose-500/50 rounded-xl text-rose-300 text-xs font-bold font-cyber flex items-center space-x-1">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>RESET DATA</span>
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- FIREBASE FIRESTORE REALTIME ENGINE SCRIPT MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, collection, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'robocore-math-matrix';
+        const firebaseConfig = typeof __firebase_config !== 'undefined'
+            ? JSON.parse(__firebase_config)
+            : {
+                apiKey: "AIzaSyDummyKeyForFallbackOnly12345678",
+                authDomain: "robocore-game.firebaseapp.com",
+                projectId: "robocore-game",
+                storageBucket: "robocore-game.appspot.com",
+                messagingSenderId: "123456789012",
+                appId: "1:123456789012:web:abcdef123456"
+            };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let user = null;
+        let globalLeaderboard = [];
+
+        async function initAuthAndFirestore() {
+            try {
+                const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                if (token) {
+                    const cred = await signInWithCustomToken(auth, token);
+                    user = cred.user;
+                } else {
+                    const cred = await signInAnonymously(auth);
+                    user = cred.user;
+                }
+                listenToRealtimeLeaderboard();
+            } catch (e) {
+                console.error("Auth / Firestore initialization error:", e);
+            }
+        }
+
+        function listenToRealtimeLeaderboard() {
+            if (!user) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+
+            onSnapshot(colRef, (snapshot) => {
+                const list = [];
+                snapshot.forEach((docSnap) => {
+                    list.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // Sort descending in JS memory to respect CSP/Firestore rules
+                list.sort((a, b) => (b.score || 0) - (a.score || 0));
+                globalLeaderboard = list.slice(0, 10);
+                
+                window.globalLeaderboardData = globalLeaderboard;
+                renderLeaderboardUI(globalLeaderboard);
+            }, (error) => {
+                console.error("Leaderboard snapshot error:", error);
+            });
+        }
+
+        async function uploadScoreToCloud(playerName, score, level) {
+            if (!user) return;
+            try {
+                const userDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard', user.uid);
+                
+                const existing = globalLeaderboard.find(item => item.id === user.uid);
+                if (!existing || score > (existing.score || 0)) {
+                    await setDoc(userDocRef, {
+                        playerName: playerName || "Cyber Agent",
+                        score: score,
+                        maxLevel: level || 1,
+                        updatedAt: new Date().toISOString()
+                    }, { merge: true });
+                }
+            } catch (e) {
+                console.error("Failed to upload score:", e);
+            }
+        }
+
+        function renderLeaderboardUI(list) {
+            const winContainer = document.getElementById('win-leaderboard-container');
+            const standaloneContainer = document.getElementById('standalone-leaderboard-container');
+
+            if (!list || list.length === 0) {
+                const emptyHTML = `<div class="text-center text-xs text-slate-500 py-3 font-cyber">Belum ada skor tercatat. Jadilah yang pertama!</div>`;
+                if (winContainer) winContainer.innerHTML = emptyHTML;
+                if (standaloneContainer) standaloneContainer.innerHTML = emptyHTML;
+                return;
+            }
+
+            let html = '';
+            list.forEach((item, idx) => {
+                const rank = idx + 1;
+                let rankBadge = `<span class="w-5 text-center font-bold text-slate-400 text-xs">${rank}.</span>`;
+                let bgStyle = "bg-slate-950/60 border-slate-800";
+
+                if (rank === 1) {
+                    rankBadge = `<span class="w-5 text-center text-amber-400 font-bold text-sm"><i class="fa-solid fa-crown"></i></span>`;
+                    bgStyle = "bg-amber-950/30 border-amber-500/50";
+                } else if (rank === 2) {
+                    rankBadge = `<span class="w-5 text-center text-slate-300 font-bold text-xs"><i class="fa-solid fa-medal"></i></span>`;
+                    bgStyle = "bg-slate-900/60 border-slate-400/40";
+                } else if (rank === 3) {
+                    rankBadge = `<span class="w-5 text-center text-amber-600 font-bold text-xs"><i class="fa-solid fa-award"></i></span>`;
+                    bgStyle = "bg-amber-900/20 border-amber-700/40";
+                }
+
+                const isCurrentUser = user && item.id === user.uid;
+                if (isCurrentUser) {
+                    bgStyle += " ring-1 ring-cyan-400/80";
+                }
+
+                html += `
+                    <div class="flex justify-between items-center p-2 rounded-xl border ${bgStyle} text-xs font-cyber">
+                        <div class="flex items-center space-x-2 truncate">
+                            ${rankBadge}
+                            <span class="font-bold ${isCurrentUser ? 'text-cyan-300' : 'text-slate-200'} truncate">
+                                ${item.playerName || 'Cyber Agent'} ${isCurrentUser ? '(KAMU)' : ''}
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-amber-300">${item.score || 0}</span>
+                            <span class="text-[9px] text-slate-500 ml-1">Lvl ${item.maxLevel || 1}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (winContainer) winContainer.innerHTML = html;
+            if (standaloneContainer) standaloneContainer.innerHTML = html;
+        }
+
+        window.uploadScoreToCloud = uploadScoreToCloud;
+        initAuthAndFirestore();
+    </script>
+
+    <!-- GAME CONFIGURATION JSON & CORE CONTROLLER SCRIPT -->
     <script>
+        const GAME_CONFIG_JSON = {
+            title: "ROBO-CORE: MATH MATRIX",
+            version: "5.0.0",
+            maxLevels: 30,
+            themes: [
+                { name: "Cyber City Metropolis", bg: "#020617", sky: "#0f172a", platform: "#1e293b", accent: "#38bdf8" },
+                { name: "Neon Forest Ledges", bg: "#022c22", sky: "#064e3b", platform: "#065f46", accent: "#34d399" },
+                { name: "Golden Crystal Canyon", bg: "#451a03", sky: "#78350f", platform: "#92400e", accent: "#fbbf24" },
+                { name: "Aurora Snow Peak", bg: "#0f172a", sky: "#1e1b4b", platform: "#312e81", accent: "#a5f3fc" },
+                { name: "Volcanic Lava Citadel", bg: "#450a0a", sky: "#7f1d1d", platform: "#991b1b", accent: "#f87171" },
+                { name: "Rainbow Cloud Kingdom", bg: "#2e1065", sky: "#581c87", platform: "#6b21a8", accent: "#f472b6" }
+            ],
+            fruitsAndItems: [
+                { emoji: "🍎", name: "Apel" },
+                { emoji: "🍊", name: "Jeruk" },
+                { emoji: "🍌", name: "Pisang" },
+                { emoji: "🍓", name: "Stroberi" },
+                { emoji: "🍉", name: "Semangka" },
+                { emoji: "🍕", name: "Pizza" },
+                { emoji: "⚡", name: "Baterai Core" },
+                { emoji: "💎", name: "Microchip" }
+            ]
+        };
+
         let canvas, ctx;
-        let gameState = 'menu'; // 'menu', 'playing', 'quiz', 'win', 'workshop'
+        let gameState = 'menu'; // 'menu', 'playing', 'quiz', 'win', 'gameover'
         let currentLevel = 1;
         let totalScore = 0;
         let levelScore = 0;
         let soundEnabled = true;
         let audioCtx = null;
-        let deferredPrompt = null;
 
-        // Visual FX & Particle Systems
+        let playerName = "CYBER AGENT";
+        let highScore = 0;
+        let maxLevelUnlocked = 1;
+
         let particles = [];
         let floatingTexts = [];
         let screenShake = { time: 0, intensity: 0 };
 
-        // Procedural Synth Music Engine Variables
         let bgMusicInterval = null;
         let bgMusicStep = 0;
-        const bgScale = [261.63, 311.13, 349.23, 392.00, 466.16, 523.25, 622.25, 698.46];
-        const bassScale = [130.81, 130.81, 155.56, 116.54];
 
-        // Player & Robot Properties
         let robot = {
-            x: 100,
-            y: 300,
-            width: 40,
-            height: 48,
-            vx: 0,
-            vy: 0,
-            speedMultiplier: 1.0,
-            jumpForce: -12,
-            facingRight: true,
-            isGrounded: false,
-            jumpCount: 0,
-            maxJumps: 2,
-            scale: 1.0,
-            color: '#06b6d4',
-            faceExpression: '^ ^',
-            isFlying: false,
-            flyTimeLeft: 0,
-            flyInterval: null
+            x: 80, y: 300, width: 40, height: 48, vx: 0, vy: 0,
+            speedMultiplier: 1.0, jumpForce: -12, facingRight: true,
+            isGrounded: false, jumpCount: 0, maxJumps: 2, scale: 1.0,
+            color: '#06b6d4', faceExpression: '^ ^', isFlying: false,
+            isSuperPowered: false, flyTimeLeft: 0, flyInterval: null,
+            health: 3, maxHealth: 3, invulnerableTimer: 0
         };
 
-        // Game Entities
         let camera = { x: 0, y: 0 };
-        let platforms = [];
-        let stars = [];
-        let gates = [];
-        let flyingPills = [];
-        let finishPortal = { x: 0, y: 0, width: 60, height: 80 };
+        let platforms = [], stars = [], gates = [], flyingPills = [];
+        let hazards = [], enemies = [];
+        let finishChest = { x: 0, y: 0, width: 50, height: 42 };
         let activeGate = null;
         let keys = { left: false, right: false, jump: false };
-        let levelThemes = [
-            { name: "Cyber City Metropolis", bg: "#020617", sky: "#0f172a", platform: "#1e293b", accent: "#38bdf8" },
-            { name: "Neon Forest Ledges", bg: "#022c22", sky: "#064e3b", platform: "#065f46", accent: "#34d399" },
-            { name: "Golden Crystal Canyon", bg: "#451a03", sky: "#78350f", platform: "#92400e", accent: "#fbbf24" },
-            { name: "Aurora Snow Peak", bg: "#0f172a", sky: "#1e1b4b", platform: "#312e81", accent: "#a5f3fc" },
-            { name: "Volcanic Lava Citadel", bg: "#450a0a", sky: "#7f1d1d", platform: "#991b1b", accent: "#f87171" },
-            { name: "Rainbow Cloud Kingdom", bg: "#2e1065", sky: "#581c87", platform: "#6b21a8", accent: "#f472b6" }
-        ];
+
+        function resetJetpackState() {
+            if (robot.flyInterval) {
+                clearInterval(robot.flyInterval);
+                robot.flyInterval = null;
+            }
+            robot.isFlying = false;
+            robot.isSuperPowered = false;
+            robot.flyTimeLeft = 0;
+            const pillHud = document.getElementById('flying-pill-hud');
+            if (pillHud) pillHud.classList.add('hidden');
+        }
+
+        function loadSavedProgress() {
+            try {
+                const savedName = localStorage.getItem('robocore_player_name');
+                const savedHighScore = localStorage.getItem('robocore_high_score');
+                const savedMaxLevel = localStorage.getItem('robocore_max_level');
+
+                if (savedName) playerName = savedName;
+                if (savedHighScore !== null) highScore = parseInt(savedHighScore, 10) || 0;
+                if (savedMaxLevel !== null) maxLevelUnlocked = parseInt(savedMaxLevel, 10) || 1;
+            } catch (e) {
+                console.error('Failed to load local storage:', e);
+            }
+            updateSavedProgressUI();
+        }
+
+        function saveGameProgress() {
+            let isNewRecord = false;
+            if (totalScore > highScore) {
+                highScore = totalScore;
+                isNewRecord = true;
+            }
+
+            if (currentLevel >= maxLevelUnlocked && currentLevel < GAME_CONFIG_JSON.maxLevels) {
+                maxLevelUnlocked = currentLevel + 1;
+            }
+
+            try {
+                localStorage.setItem('robocore_player_name', playerName);
+                localStorage.setItem('robocore_high_score', highScore);
+                localStorage.setItem('robocore_max_level', maxLevelUnlocked);
+            } catch (e) {
+                console.error('Failed to save to local storage:', e);
+            }
+
+            updateSavedProgressUI();
+            if (window.uploadScoreToCloud) {
+                window.uploadScoreToCloud(playerName, highScore, maxLevelUnlocked);
+            }
+            return isNewRecord;
+        }
+
+        function updateSavedProgressUI() {
+            const nameInput = document.getElementById('player-name-input');
+            const menuHi = document.getElementById('menu-high-score');
+            const menuLvl = document.getElementById('menu-max-level');
+            const btnContinue = document.getElementById('btn-continue');
+            const btnContinueLvl = document.getElementById('btn-continue-lvl');
+
+            if (nameInput && playerName) nameInput.value = playerName;
+            if (menuHi) menuHi.innerText = highScore;
+            if (menuLvl) menuLvl.innerText = `${maxLevelUnlocked}/${GAME_CONFIG_JSON.maxLevels}`;
+
+            if (maxLevelUnlocked > 1) {
+                if (btnContinue) btnContinue.classList.remove('hidden');
+                if (btnContinueLvl) btnContinueLvl.innerText = maxLevelUnlocked;
+            } else {
+                if (btnContinue) btnContinue.classList.add('hidden');
+            }
+        }
+
+        window.savePlayerNameFromInput = function() {
+            const input = document.getElementById('player-name-input');
+            const statusMsg = document.getElementById('name-status-msg');
+            if (input && input.value.trim() !== '') {
+                playerName = input.value.trim().toUpperCase();
+                try {
+                    localStorage.setItem('robocore_player_name', playerName);
+                } catch (e) {}
+                if (statusMsg) statusMsg.classList.add('hidden');
+                updateHUD();
+                updateSavedProgressUI();
+                if (window.uploadScoreToCloud) {
+                    window.uploadScoreToCloud(playerName, highScore, maxLevelUnlocked);
+                }
+            } else if (statusMsg) {
+                statusMsg.classList.remove('hidden');
+            }
+        };
+
+        window.showResetConfirm = function() {
+            const box = document.getElementById('reset-confirm-box');
+            if (box) box.classList.remove('hidden');
+        };
+
+        window.cancelResetProgress = function() {
+            const box = document.getElementById('reset-confirm-box');
+            if (box) box.classList.add('hidden');
+        };
+
+        window.confirmResetProgress = function() {
+            try {
+                localStorage.removeItem('robocore_player_name');
+                localStorage.removeItem('robocore_high_score');
+                localStorage.removeItem('robocore_max_level');
+            } catch (e) {}
+            highScore = 0;
+            maxLevelUnlocked = 1;
+            playerName = "CYBER AGENT";
+            updateSavedProgressUI();
+            cancelResetProgress();
+            closeWorkshop();
+        };
+
+        function renderHeartsHUD() {
+            const heartsEl = document.getElementById('hud-hearts');
+            if (!heartsEl) return;
+            let html = '';
+            for (let i = 0; i < robot.maxHealth; i++) {
+                if (i < robot.health) {
+                    html += '<i class="fa-solid fa-heart text-rose-500"></i>';
+                } else {
+                    html += '<i class="fa-regular fa-heart text-slate-600"></i>';
+                }
+            }
+            heartsEl.innerHTML = html;
+        }
+
+        function createParticles(x, y, count, type = 'spark', color = '#38bdf8') {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x, y: y,
+                    vx: (Math.random() - 0.5) * (type === 'explosion' ? 8 : 4),
+                    vy: (Math.random() - 0.5) * (type === 'explosion' ? 8 : 4) - (type === 'dust' ? 1 : 0),
+                    size: Math.random() * (type === 'explosion' ? 6 : 4) + 2,
+                    color: color, alpha: 1.0,
+                    life: Math.random() * 20 + 20, maxLife: 40,
+                    type: type
+                });
+            }
+        }
+
+        function createFloatingText(x, y, text, color = '#facc15') {
+            floatingTexts.push({
+                x: x, y: y, text: text, color: color, alpha: 1.0, vy: -1.5, life: 45
+            });
+        }
+
+        function triggerScreenShake(intensity = 8, duration = 15) {
+            screenShake.intensity = intensity;
+            screenShake.time = duration;
+        }
+
+        window.openLeaderboardModal = function() {
+            document.getElementById('leaderboard-modal')?.classList.remove('hidden');
+        };
+
+        window.closeLeaderboardModal = function() {
+            document.getElementById('leaderboard-modal')?.classList.add('hidden');
+        };
+
+        window.openWorkshop = function() {
+            document.getElementById('workshop-modal')?.classList.remove('hidden');
+        };
+
+        window.closeWorkshop = function() {
+            document.getElementById('workshop-modal')?.classList.add('hidden');
+        };
+
+        window.setRobotColor = function(color) {
+            robot.color = color;
+            playSound('star');
+            createParticles(robot.x + 20, robot.y + 20, 15, 'spark', color);
+        };
+
+        window.upgradeCPU = function(name, mult) {
+            robot.speedMultiplier = mult;
+            playSound('correct');
+            createParticles(robot.x + 20, robot.y + 20, 20, 'spark', '#facc15');
+        };
+
+        window.returnToMenu = function() {
+            gameState = 'menu';
+            stopBgMusic();
+            document.getElementById('gameover-modal')?.classList.add('hidden');
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            document.getElementById('menu-overlay')?.classList.remove('hidden');
+            updateSavedProgressUI();
+        };
+
+        function doOverlap(a, b, marginX = 25, marginY = 20) {
+            return !(a.x + a.width + marginX <= b.x ||
+                     b.x + b.width + marginX <= a.x ||
+                     a.y + a.height + marginY <= b.y ||
+                     b.y + b.height + marginY <= a.y);
+        }
+
+        // MULTI-PATH TIER & BRANCHING LEVEL GENERATOR
+        function generateLevel(lvl) {
+            resetJetpackState();
+            platforms = []; stars = []; gates = []; flyingPills = [];
+            hazards = []; enemies = []; particles = []; floatingTexts = [];
+
+            // Safe bottom abyss ground
+            platforms.push({ x: -300, y: 850, width: 3500, height: 100, isSafeBase: true });
+
+            const numTiers = 6 + Math.min(lvl, 8);
+            const tierHeight = 70; // Guaranteed 1-jump or 2-jump height
+            const startY = 620;
+
+            // 3 Horizontal Zones (Left, Center, Right) across world width
+            const zones = [
+                { name: 'left', minX: 80, maxX: 260 },
+                { name: 'center', minX: 440, maxX: 620 },
+                { name: 'right', minX: 800, maxX: 980 }
+            ];
+
+            // Tier 0: Start platform at Center
+            let startPlat = {
+                x: 420, y: startY, width: 180, height: 22,
+                isMoving: false
+            };
+            platforms.push(startPlat);
+
+            // Progressive gate requirement based on level
+            const gateCountNeeded = lvl === 1 ? 1 : (lvl <= 3 ? 2 : 3);
+            let placedGates = 0;
+            let jetpackPlaced = false;
+
+            // Generate level layout according to current level difficulty
+            for (let t = 1; t <= numTiers; t++) {
+                let currentTierY = startY - t * tierHeight;
+
+                let activeZoneIndices = [];
+                if (lvl <= 2) {
+                    // SINGLE PATH MODE (Level 1 & 2)
+                    // Sequential zig-zag single route for smooth learning curve
+                    if (t === numTiers) {
+                        activeZoneIndices = [1]; // Top Center finish
+                    } else {
+                        // Alternate between Center, Left, Right single steps
+                        let singleZone = (t % 2 === 1) ? 1 : (t % 4 === 2 ? 0 : 2);
+                        activeZoneIndices = [singleZone];
+                    }
+                } else if (lvl === 3) {
+                    // DUAL PATH MODE (Level 3)
+                    if (t === numTiers) activeZoneIndices = [1];
+                    else activeZoneIndices = (t % 2 === 1) ? [1] : [0, 2];
+                } else {
+                    // MULTI-PATH & BRANCHING MODE (Level 4+)
+                    if (t === numTiers) {
+                        activeZoneIndices = [1];
+                    } else if (t === 1) {
+                        activeZoneIndices = [0, 2];
+                    } else if (t % 3 === 0) {
+                        activeZoneIndices = [0, 1, 2]; // Crossover Tier
+                    } else {
+                        activeZoneIndices = [0, 2];
+                    }
+                }
+
+                for (let zIdx of activeZoneIndices) {
+                    let z = zones[zIdx];
+                    let platWidth = Math.max(120, 160 - Math.min(lvl, 10) * 3);
+                    let platX = z.minX + Math.random() * (z.maxX - z.minX - platWidth + 30);
+                    let platY = currentTierY;
+
+                    // Dip/Valley effect on specific tier (Only active for Level 4+)
+                    if (lvl >= 4 && t === 2 && zIdx === 2) {
+                        platY += 35; // Valley dip on Right branch forcing Down-then-Up climb
+                    }
+
+                    // Moving platforms only active from Level 3+
+                    let isMoving = (lvl >= 3 && Math.random() > (lvl <= 5 ? 0.80 : 0.60) && t < numTiers);
+
+                    let newPlat = {
+                        x: platX, y: platY, width: platWidth, height: 22,
+                        isMoving: isMoving,
+                        startX: platX, startY: platY,
+                        moveRange: 25,
+                        moveSpeed: (0.7 + Math.random() * 0.5) * (Math.random() > 0.5 ? 1 : -1)
+                    };
+
+                    // Check for zero-overlap with all existing platforms
+                    let overlaps = false;
+                    for (let existing of platforms) {
+                        if (!existing.isSafeBase && doOverlap(newPlat, existing, 25, 20)) {
+                            overlaps = true;
+                            break;
+                        }
+                    }
+
+                    if (!overlaps) {
+                        platforms.push(newPlat);
+
+                        // Strict Single Item Placement
+                        if (t === numTiers && zIdx === 1) {
+                            finishChest = {
+                                x: platX + platWidth / 2 - 25,
+                                y: platY - 45,
+                                width: 50, height: 42
+                            };
+                        } else if (placedGates < gateCountNeeded && (t === 2 || t === 4 || t === numTiers - 1)) {
+                            placedGates++;
+                            gates.push({
+                                x: platX + platWidth / 2 - 18,
+                                y: platY - 42,
+                                width: 36, height: 42,
+                                cleared: false,
+                                missionNumber: placedGates,
+                                question: generateMathQuestion(lvl)
+                            });
+                        } else {
+                            let rand = Math.random();
+                            if (!jetpackPlaced && t === 3 && rand < 0.3) {
+                                flyingPills.push({
+                                    x: platX + platWidth / 2 - 13,
+                                    y: platY - 32,
+                                    width: 26, height: 26,
+                                    collected: false
+                                });
+                                jetpackPlaced = true;
+                            } else if (rand < 0.45) {
+                                stars.push({
+                                    x: platX + platWidth / 2 - 10,
+                                    y: platY - 30,
+                                    width: 20, height: 20,
+                                    collected: false
+                                });
+                            } else if (lvl >= 2 && rand < (lvl === 2 ? 0.60 : 0.68)) {
+                                hazards.push({
+                                    x: platX + platWidth / 2 - 12,
+                                    y: platY - 14,
+                                    width: 24, height: 14,
+                                    type: 'spike',
+                                    parentPlat: newPlat
+                                });
+                            } else if (lvl >= 3 && rand < 0.82) {
+                                enemies.push({
+                                    x: platX + platWidth / 2,
+                                    y: platY - 45,
+                                    width: 26, height: 22,
+                                    minX: platX - 20,
+                                    maxX: platX + platWidth + 20,
+                                    vx: (0.8 + lvl * 0.1) * (Math.random() > 0.5 ? 1 : -1)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Ensure all required gates are placed
+            while (placedGates < gateCountNeeded) {
+                placedGates++;
+                let candidatePlats = platforms.filter(p => !p.isSafeBase);
+                let p = candidatePlats[Math.floor(Math.random() * candidatePlats.length)];
+                gates.push({
+                    x: p.x + p.width / 2 - 18,
+                    y: p.y - 42,
+                    width: 36, height: 42,
+                    cleared: false,
+                    missionNumber: placedGates,
+                    question: generateMathQuestion(lvl)
+                });
+            }
+
+            // Robot start position
+            robot.x = startPlat.x + startPlat.width / 2 - 20;
+            robot.y = startPlat.y - 60;
+            robot.vx = 0; robot.vy = 0;
+            robot.scale = 1.0;
+            robot.health = 3; robot.invulnerableTimer = 0;
+            renderHeartsHUD();
+        }
+
+        function generateMathQuestion(lvl) {
+            const types = ['emoji', 'word_problem', 'standard'];
+            const chosenType = types[Math.floor(Math.random() * types.length)];
+            const items = GAME_CONFIG_JSON.fruitsAndItems;
+            const selectedItem = items[Math.floor(Math.random() * items.length)];
+
+            let a, b, op, ans, textStr, opts = [];
+
+            if (lvl <= 5) {
+                a = Math.floor(Math.random() * 5) + 1;
+                b = Math.floor(Math.random() * 5) + 1;
+                op = '+'; ans = a + b;
+            } else if (lvl <= 15) {
+                a = Math.floor(Math.random() * 10) + 1;
+                b = Math.floor(Math.random() * 8) + 1;
+                op = Math.random() > 0.4 ? '+' : '-';
+                if (op === '-' && a < b) [a, b] = [b, a];
+                ans = op === '+' ? a + b : a - b;
+            } else {
+                a = Math.floor(Math.random() * 15) + 3;
+                b = Math.floor(Math.random() * 12) + 1;
+                op = Math.random() > 0.5 ? '+' : '-';
+                if (op === '-' && a < b) [a, b] = [b, a];
+                ans = op === '+' ? a + b : a - b;
+            }
+
+            if (chosenType === 'emoji' && a <= 5 && b <= 5) {
+                const strA = selectedItem.emoji.repeat(a);
+                const strB = selectedItem.emoji.repeat(b);
+                textStr = `${strA}  ${op}  ${strB} = ?`;
+            } else if (chosenType === 'word_problem') {
+                textStr = op === '+' ? `${a} ${selectedItem.name} ${selectedItem.emoji} + ${b} ${selectedItem.name} = ?`
+                                     : `${a} ${selectedItem.name} ${selectedItem.emoji} - ${b} ${selectedItem.name} = ?`;
+            } else {
+                textStr = `${a} ${op} ${b} = ?`;
+            }
+
+            opts.push(ans);
+            while (opts.length < 4) {
+                let wrong = ans + (Math.floor(Math.random() * 7) - 3);
+                if (wrong >= 0 && !opts.includes(wrong)) opts.push(wrong);
+            }
+            opts.sort(() => Math.random() - 0.5);
+
+            return { text: textStr, answer: ans, options: opts };
+        }
+
+        window.startNewGame = function() {
+            savePlayerNameFromInput();
+            initAudio();
+            gameState = 'playing';
+            currentLevel = 1;
+            totalScore = 0;
+            levelScore = 0;
+            document.getElementById('menu-overlay')?.classList.add('hidden');
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('gameover-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            generateLevel(currentLevel);
+            updateHUD();
+            startBgMusic();
+        };
+
+        window.resumeGame = function() {
+            savePlayerNameFromInput();
+            initAudio();
+            gameState = 'playing';
+            currentLevel = maxLevelUnlocked;
+            totalScore = 0;
+            levelScore = 0;
+            document.getElementById('menu-overlay')?.classList.add('hidden');
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('gameover-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            generateLevel(currentLevel);
+            updateHUD();
+            startBgMusic();
+        };
+
+        window.restartLevel = function() {
+            gameState = 'playing';
+            levelScore = 0;
+            document.getElementById('win-modal')?.classList.add('hidden');
+            document.getElementById('gameover-modal')?.classList.add('hidden');
+            document.getElementById('math-modal')?.classList.add('hidden');
+            generateLevel(currentLevel);
+            updateHUD();
+            startBgMusic();
+        };
+
+        window.nextLevel = function() {
+            currentLevel++;
+            if (currentLevel > GAME_CONFIG_JSON.maxLevels) currentLevel = 1;
+            window.restartLevel();
+        };
+
+        function updateHUD() {
+            const hLvl = document.getElementById('hud-level');
+            const hScr = document.getElementById('hud-score');
+            const hMissions = document.getElementById('hud-missions');
+
+            if (hLvl) hLvl.innerText = currentLevel;
+            if (hScr) hScr.innerText = totalScore + levelScore;
+
+            if (hMissions && gates) {
+                const clearedCount = gates.filter(g => g.cleared).length;
+                hMissions.innerText = `${clearedCount}/${gates.length}`;
+                hMissions.className = clearedCount === gates.length ? "text-emerald-400 font-bold" : "text-yellow-400 font-bold";
+            }
+            renderHeartsHUD();
+        }
+
+        function triggerMathQuiz(gate) {
+            gameState = 'quiz';
+            activeGate = gate;
+            stopBgMusic();
+
+            const modal = document.getElementById('math-modal');
+            const qEl = document.getElementById('math-question');
+            const optsEl = document.getElementById('math-options');
+            const fbEl = document.getElementById('math-feedback');
+            const titleEl = document.getElementById('math-mission-title');
+
+            if (!modal || !qEl || !optsEl) return;
+
+            if (titleEl) titleEl.innerText = `TERMINAL BUKU • SOAL #${gate.missionNumber || 1}`;
+            qEl.innerText = gate.question.text;
+            optsEl.innerHTML = '';
+            if (fbEl) fbEl.innerText = '';
+
+            gate.question.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-cyber py-3 px-4 bg-slate-900 border border-cyan-400 rounded-xl font-pixel text-yellow-300 text-sm hover:bg-cyan-900';
+                btn.innerText = opt;
+                btn.onclick = () => handleQuizAnswer(opt, gate.question.answer);
+                optsEl.appendChild(btn);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function handleQuizAnswer(selected, correct) {
+            const fbEl = document.getElementById('math-feedback');
+            if (selected === correct) {
+                playSound('correct');
+                levelScore += 100;
+                createParticles(robot.x + 20, robot.y + 20, 30, 'explosion', '#10b981');
+                createFloatingText(robot.x, robot.y - 20, '+100 PTS', '#34d399');
+                if (fbEl) {
+                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-emerald-400';
+                    fbEl.innerText = 'BENAR! SOAL SELESAI (+100 POIN)';
+                }
+            } else {
+                playSound('wrong');
+                levelScore = Math.max(0, levelScore - 50);
+                takeDamage(1);
+                createParticles(robot.x + 20, robot.y + 20, 20, 'dust', '#f87171');
+                if (fbEl) {
+                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-rose-400';
+                    fbEl.innerText = `KURANG TEPAT! Jawaban: ${correct} (-50 Poin)`;
+                }
+            }
+
+            if (activeGate) activeGate.cleared = true;
+            updateHUD();
+
+            setTimeout(() => {
+                document.getElementById('math-modal')?.classList.add('hidden');
+                if (robot.health > 0) {
+                    gameState = 'playing';
+                    startBgMusic();
+                }
+            }, 1000);
+        }
+
+        function takeDamage(amount = 1) {
+            if (robot.invulnerableTimer > 0) return;
+
+            robot.health -= amount;
+            robot.invulnerableTimer = 60;
+            triggerScreenShake(12, 18);
+            playSound('hurt');
+            createParticles(robot.x + 20, robot.y + 20, 20, 'explosion', '#ef4444');
+            renderHeartsHUD();
+
+            if (robot.health <= 0) {
+                resetJetpackState();
+                triggerGameOver();
+            }
+        }
+
+        function triggerGameOver() {
+            gameState = 'gameover';
+            resetJetpackState();
+            stopBgMusic();
+            playSound('wrong');
+            
+            const modal = document.getElementById('gameover-modal');
+            const goLvl = document.getElementById('go-level');
+            const goScr = document.getElementById('go-score');
+
+            if (goLvl) goLvl.innerText = `Level ${currentLevel}`;
+            if (goScr) goScr.innerText = `${totalScore + levelScore} PTS`;
+
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function triggerLevelComplete() {
+            gameState = 'win';
+            resetJetpackState();
+            stopBgMusic();
+            
+            totalScore += levelScore;
+            const isNewRecord = saveGameProgress();
+
+            const currentLeaderboard = window.globalLeaderboardData || [];
+            const minTop10Score = currentLeaderboard.length >= 10 ? (currentLeaderboard[9]?.score || 0) : 0;
+            const isTop10 = currentLeaderboard.length < 10 || totalScore > minTop10Score;
+
+            if (isTop10) playSound('top10');
+            else playSound('win');
+
+            triggerScreenShake(isTop10 ? 20 : 15, 25);
+            createParticles(robot.x + 20, robot.y + 20, isTop10 ? 90 : 60, 'explosion', isTop10 ? '#38bdf8' : '#facc15');
+
+            const modal = document.getElementById('win-modal');
+            const winName = document.getElementById('win-player-name');
+            const winScore = document.getElementById('win-score');
+            const winTotal = document.getElementById('win-total-score');
+            const themeName = document.getElementById('win-theme-name');
+            const newRecordEl = document.getElementById('win-new-record');
+
+            const themes = GAME_CONFIG_JSON.themes;
+            const currentTheme = themes[(currentLevel - 1) % themes.length];
+            if (winName) winName.innerText = playerName;
+            if (themeName) themeName.innerText = currentTheme.name;
+            if (winScore) winScore.innerText = `+${levelScore}`;
+            if (winTotal) winTotal.innerText = totalScore;
+
+            if (newRecordEl) {
+                if (isTop10) {
+                    newRecordEl.innerText = "★ SELAMAT! KAMU MASUK TOP 10 GLOBAL LEADERBOARD! ★";
+                    newRecordEl.className = "border-t border-cyan-500/50 pt-1 text-center text-cyan-300 font-bold animate-pulse text-[11px]";
+                    newRecordEl.classList.remove('hidden');
+                } else if (isNewRecord) {
+                    newRecordEl.innerText = "★ REKOR HIGH SCORE BARU DIUNGGAH KE CLOUD! ★";
+                    newRecordEl.className = "border-t border-amber-500/30 pt-1 text-center text-amber-300 font-bold animate-pulse text-[11px]";
+                    newRecordEl.classList.remove('hidden');
+                } else {
+                    newRecordEl.classList.add('hidden');
+                }
+            }
+
+            if (modal) modal.classList.remove('hidden');
+        }
 
         function initAudio() {
             if (!audioCtx) {
@@ -519,8 +1380,9 @@
             if (!audioCtx || audioCtx.state !== 'running') return;
             try {
                 const now = audioCtx.currentTime;
+                const bassScale = [130.81, 130.81, 155.56, 116.54];
+                const bgScale = [261.63, 311.13, 349.23, 392.00, 466.16, 523.25, 622.25, 698.46];
 
-                // Bass Synth Beat
                 if (step % 4 === 0) {
                     const bassOsc = audioCtx.createOscillator();
                     const bassGain = audioCtx.createGain();
@@ -545,7 +1407,6 @@
                     bassOsc.stop(now + 0.22);
                 }
 
-                // Melodic Synth Arpeggio
                 if (step % 2 === 0 || Math.random() > 0.3) {
                     const leadOsc = audioCtx.createOscillator();
                     const leadGain = audioCtx.createGain();
@@ -563,103 +1424,58 @@
                     leadOsc.start(now);
                     leadOsc.stop(now + 0.12);
                 }
-
-                // Percussive Synth Hi-Hat Pulse
-                if (step % 2 === 1) {
-                    const hatOsc = audioCtx.createOscillator();
-                    const hatGain = audioCtx.createGain();
-                    hatOsc.type = 'triangle';
-                    hatOsc.frequency.setValueAtTime(1400 + Math.random() * 600, now);
-
-                    hatGain.gain.setValueAtTime(0.018, now);
-                    hatGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-
-                    hatOsc.connect(hatGain);
-                    hatGain.connect(audioCtx.destination);
-
-                    hatOsc.start(now);
-                    hatOsc.stop(now + 0.04);
-                }
             } catch (e) { console.error(e); }
-        }
-
-        function createParticles(x, y, count, type = 'spark', color = '#38bdf8') {
-            for (let i = 0; i < count; i++) {
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: (Math.random() - 0.5) * (type === 'explosion' ? 8 : 4),
-                    vy: (Math.random() - 0.5) * (type === 'explosion' ? 8 : 4) - (type === 'dust' ? 1 : 0),
-                    size: Math.random() * (type === 'explosion' ? 6 : 4) + 2,
-                    color: color,
-                    alpha: 1.0,
-                    life: Math.random() * 20 + 20,
-                    maxLife: 40,
-                    type: type
-                });
-            }
-        }
-
-        function createFloatingText(x, y, text, color = '#facc15') {
-            floatingTexts.push({
-                x: x,
-                y: y,
-                text: text,
-                color: color,
-                alpha: 1.0,
-                vy: -1.5,
-                life: 45
-            });
-        }
-
-        function triggerScreenShake(intensity = 8, duration = 15) {
-            screenShake.intensity = intensity;
-            screenShake.time = duration;
         }
 
         function playSound(type) {
             if (!soundEnabled || !audioCtx) return;
             try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
                 const now = audioCtx.currentTime;
                 if (type === 'jump') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(150, now);
                     osc.frequency.exponentialRampToValueAtTime(450, now + 0.15);
                     gain.gain.setValueAtTime(0.3, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-                    osc.start(now);
-                    osc.stop(now + 0.15);
+                    osc.start(now); osc.stop(now + 0.15);
                 } else if (type === 'star') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(523.25, now);
                     osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.2);
                     gain.gain.setValueAtTime(0.3, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-                    osc.start(now);
-                    osc.stop(now + 0.2);
+                    osc.start(now); osc.stop(now + 0.2);
                 } else if (type === 'correct') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.type = 'square';
                     osc.frequency.setValueAtTime(523.25, now);
                     osc.frequency.setValueAtTime(659.25, now + 0.1);
                     osc.frequency.setValueAtTime(783.99, now + 0.2);
                     gain.gain.setValueAtTime(0.25, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-                    osc.start(now);
-                    osc.stop(now + 0.35);
-                } else if (type === 'wrong') {
+                    osc.start(now); osc.stop(now + 0.35);
+                } else if (type === 'wrong' || type === 'hurt') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(280, now);
                     osc.frequency.setValueAtTime(140, now + 0.15);
                     gain.gain.setValueAtTime(0.35, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
+                    osc.start(now); osc.stop(now + 0.3);
                 } else if (type === 'win') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(523.25, now);
                     osc.frequency.setValueAtTime(659.25, now + 0.12);
@@ -667,315 +1483,23 @@
                     osc.frequency.setValueAtTime(1046.50, now + 0.36);
                     gain.gain.setValueAtTime(0.3, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-                    osc.start(now);
-                    osc.stop(now + 0.6);
+                    osc.start(now); osc.stop(now + 0.6);
+                } else if (type === 'top10') {
+                    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98];
+                    notes.forEach((freq, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        gain.gain.setValueAtTime(0.25, now + idx * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.25);
+                    });
                 }
             } catch (e) { console.error(e); }
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('btn-pwa-install')?.classList.remove('hidden');
-            document.getElementById('btn-pwa-hud')?.classList.remove('hidden');
-        });
-
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                const swCode = `
-                    const CACHE_NAME = 'robocore-v1';
-                    self.addEventListener('install', (e) => { self.skipWaiting(); });
-                    self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
-                    self.addEventListener('fetch', (e) => {
-                        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-                    });
-                `;
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Reg Fail:', err));
-            }
-        }
-
-        window.installPWAApp = function() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => {
-                    deferredPrompt = null;
-                    document.getElementById('btn-pwa-install')?.classList.add('hidden');
-                    document.getElementById('btn-pwa-hud')?.classList.add('hidden');
-                });
-            } else {
-                // Jika di iOS Safari atau browser tanpa prompt otomatis
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    document.getElementById('ios-install-modal')?.classList.remove('hidden');
-                } else {
-                    alert("Aplikasi siap diinstal! Pilih menu browser (titik tiga) lalu pilih 'Tambahkan ke Layar Utama' / 'Install Application'.");
-                }
-            }
-        };
-
-        window.closeIosInstallModal = function() {
-            document.getElementById('ios-install-modal')?.classList.add('hidden');
-        };
-
-        window.requestFullscreenAndLock = function() {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen().catch(() => {});
-            }
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
-            }
-        };
-
-        window.toggleAudio = function() {
-            soundEnabled = !soundEnabled;
-            const icon = document.getElementById('sound-icon');
-            if (icon) {
-                icon.className = soundEnabled ? 'fa-solid fa-volume-high text-sm md:text-base' : 'fa-solid fa-volume-xmark text-sm md:text-base text-rose-400';
-            }
-            initAudio();
-            if (soundEnabled && gameState === 'playing') {
-                startBgMusic();
-            } else {
-                stopBgMusic();
-            }
-        };
-
-        window.openWorkshop = function() {
-            document.getElementById('workshop-modal')?.classList.remove('hidden');
-        };
-
-        window.closeWorkshop = function() {
-            document.getElementById('workshop-modal')?.classList.add('hidden');
-        };
-
-        window.setRobotColor = function(color) {
-            robot.color = color;
-            playSound('star');
-            createParticles(robot.x + 20, robot.y + 20, 15, 'spark', color);
-        };
-
-        window.upgradeCPU = function(name, mult) {
-            robot.speedMultiplier = mult;
-            const bar = document.getElementById('stat-speed-bar');
-            const txt = document.getElementById('stat-speed-text');
-            if (bar) bar.style.width = (mult * 70) + '%';
-            if (txt) txt.innerText = Math.round(mult * 100) + '%';
-            playSound('correct');
-            createParticles(robot.x + 20, robot.y + 20, 20, 'spark', '#facc15');
-        };
-
-        function generateLevel(lvl) {
-            platforms = [];
-            stars = [];
-            gates = [];
-            flyingPills = [];
-            particles = [];
-            floatingTexts = [];
-
-            const totalSteps = 10 + Math.min(lvl, 15);
-            let currentX = 50;
-            let currentY = 500;
-
-            // Base Safe Floor
-            platforms.push({ x: -200, y: 650, width: 3000, height: 100, isSafeBase: true });
-
-            // Starting Platform
-            platforms.push({ x: 0, y: currentY, width: 200, height: 25 });
-
-            for (let i = 0; i < totalSteps; i++) {
-                currentX += 160 + Math.random() * 40;
-                currentY -= 40 + Math.random() * 20;
-
-                platforms.push({ x: currentX, y: currentY, width: 120, height: 22 });
-
-                // Add stars on platforms
-                if (Math.random() > 0.3) {
-                    stars.push({ x: currentX + 50, y: currentY - 35, width: 20, height: 20, collected: false });
-                }
-
-                // Add Math Gates
-                if (i === 3 || i === 7 || i === 12) {
-                    gates.push({
-                        x: currentX + 30,
-                        y: currentY - 70,
-                        width: 30,
-                        height: 70,
-                        cleared: false,
-                        question: generateMathQuestion(lvl)
-                    });
-                }
-            }
-
-            // Flying Pills on specific levels
-            if ([3, 5, 8, 10, 13, 15, 18, 20, 25, 30].includes(lvl)) {
-                flyingPills.push({ x: 300, y: currentY + 100, width: 24, height: 24, collected: false });
-            }
-
-            // Top Finish Portal
-            finishPortal = {
-                x: currentX + 40,
-                y: currentY - 90,
-                width: 50,
-                height: 90
-            };
-
-            robot.x = 50;
-            robot.y = currentY - 60;
-            robot.vx = 0;
-            robot.vy = 0;
-            robot.scale = 1.0;
-            robot.isFlying = false;
-        }
-
-        function generateMathQuestion(lvl) {
-            let a, b, op, ans, opts = [];
-            if (lvl <= 5) {
-                a = Math.floor(Math.random() * 5) + 1;
-                b = Math.floor(Math.random() * 5) + 1;
-                op = '+';
-                ans = a + b;
-            } else if (lvl <= 15) {
-                a = Math.floor(Math.random() * 10) + 1;
-                b = Math.floor(Math.random() * 8) + 1;
-                op = Math.random() > 0.5 ? '+' : '-';
-                if (op === '-' && a < b) [a, b] = [b, a];
-                ans = op === '+' ? a + b : a - b;
-            } else {
-                a = Math.floor(Math.random() * 15) + 5;
-                b = Math.floor(Math.random() * 12) + 1;
-                op = Math.random() > 0.5 ? '+' : '-';
-                if (op === '-' && a < b) [a, b] = [b, a];
-                ans = op === '+' ? a + b : a - b;
-            }
-
-            opts.push(ans);
-            while (opts.length < 4) {
-                let wrong = ans + (Math.floor(Math.random() * 7) - 3);
-                if (wrong >= 0 && !opts.includes(wrong)) opts.push(wrong);
-            }
-            opts.sort(() => Math.random() - 0.5);
-
-            return { text: `${a} ${op} ${b} = ?`, answer: ans, options: opts };
-        }
-
-        window.startGame = function() {
-            initAudio();
-            gameState = 'playing';
-            currentLevel = 1;
-            totalScore = 0;
-            levelScore = 0;
-            document.getElementById('menu-overlay')?.classList.add('hidden');
-            document.getElementById('win-modal')?.classList.add('hidden');
-            document.getElementById('math-modal')?.classList.add('hidden');
-            generateLevel(currentLevel);
-            updateHUD();
-            startBgMusic();
-        };
-
-        window.restartLevel = function() {
-            gameState = 'playing';
-            levelScore = 0;
-            document.getElementById('win-modal')?.classList.add('hidden');
-            document.getElementById('math-modal')?.classList.add('hidden');
-            generateLevel(currentLevel);
-            updateHUD();
-            startBgMusic();
-        };
-
-        window.nextLevel = function() {
-            currentLevel++;
-            if (currentLevel > 30) currentLevel = 1;
-            window.restartLevel();
-        };
-
-        function updateHUD() {
-            const hLvl = document.getElementById('hud-level');
-            const hScr = document.getElementById('hud-score');
-            if (hLvl) hLvl.innerText = currentLevel;
-            if (hScr) hScr.innerText = totalScore + levelScore;
-        }
-
-        function triggerMathQuiz(gate) {
-            gameState = 'quiz';
-            activeGate = gate;
-            stopBgMusic();
-
-            const modal = document.getElementById('math-modal');
-            const qEl = document.getElementById('math-question');
-            const optsEl = document.getElementById('math-options');
-            const fbEl = document.getElementById('math-feedback');
-
-            if (!modal || !qEl || !optsEl) return;
-
-            qEl.innerText = gate.question.text;
-            optsEl.innerHTML = '';
-            if (fbEl) fbEl.innerText = '';
-
-            gate.question.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-cyber py-3 px-4 bg-slate-900 border border-cyan-400 rounded-xl font-pixel text-yellow-300 text-sm hover:bg-cyan-900';
-                btn.innerText = opt;
-                btn.onclick = () => handleQuizAnswer(opt, gate.question.answer);
-                optsEl.appendChild(btn);
-            });
-
-            modal.classList.remove('hidden');
-        }
-
-        function handleQuizAnswer(selected, correct) {
-            const fbEl = document.getElementById('math-feedback');
-            if (selected === correct) {
-                playSound('correct');
-                levelScore += 100;
-                createParticles(robot.x + 20, robot.y + 20, 30, 'explosion', '#10b981');
-                createFloatingText(robot.x, robot.y - 20, '+100 PTS', '#34d399');
-                if (fbEl) {
-                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-emerald-400';
-                    fbEl.innerText = 'BENAR! +100 POIN!';
-                }
-            } else {
-                playSound('wrong');
-                levelScore = Math.max(0, levelScore - 50);
-                triggerScreenShake(12, 20);
-                createParticles(robot.x + 20, robot.y + 20, 20, 'dust', '#f87171');
-                if (fbEl) {
-                    fbEl.className = 'font-cyber font-bold text-xs md:text-sm text-rose-400';
-                    fbEl.innerText = `KURANG TEPAT! Jawaban: ${correct} (-50 Poin)`;
-                }
-            }
-
-            if (activeGate) activeGate.cleared = true;
-            updateHUD();
-
-            setTimeout(() => {
-                document.getElementById('math-modal')?.classList.add('hidden');
-                gameState = 'playing';
-                startBgMusic();
-            }, 1000);
-        }
-
-        function triggerLevelComplete() {
-            gameState = 'win';
-            stopBgMusic();
-            playSound('win');
-            totalScore += levelScore;
-
-            triggerScreenShake(15, 25);
-            createParticles(robot.x + 20, robot.y + 20, 60, 'explosion', '#facc15');
-
-            const modal = document.getElementById('win-modal');
-            const winScore = document.getElementById('win-score');
-            const winTotal = document.getElementById('win-total-score');
-            const themeName = document.getElementById('win-theme-name');
-
-            const currentTheme = levelThemes[(currentLevel - 1) % levelThemes.length];
-            if (themeName) themeName.innerText = currentTheme.name;
-            if (winScore) winScore.innerText = `+${levelScore}`;
-            if (winTotal) winTotal.innerText = totalScore;
-
-            if (modal) modal.classList.remove('hidden');
         }
 
         window.addEventListener('keydown', (e) => {
@@ -1015,7 +1539,7 @@
         function handleJump() {
             if (gameState !== 'playing') return;
             if (robot.isFlying) {
-                robot.vy = -8;
+                robot.vy = -7.5;
                 playSound('jump');
                 createParticles(robot.x + 20, robot.y + 40, 8, 'spark', '#ec4899');
             } else if (robot.isGrounded || robot.jumpCount < robot.maxJumps) {
@@ -1029,9 +1553,11 @@
 
         function activateFlyingPill() {
             robot.isFlying = true;
-            robot.flyTimeLeft = 30;
+            robot.isSuperPowered = true;
+            robot.flyTimeLeft = 35;
             playSound('star');
-            createParticles(robot.x + 20, robot.y + 20, 25, 'spark', '#ec4899');
+            createParticles(robot.x + 20, robot.y + 20, 35, 'spark', '#ec4899');
+            createFloatingText(robot.x, robot.y - 30, 'SUPER JETPACK 35s!', '#f472b6');
 
             const pillHud = document.getElementById('flying-pill-hud');
             const pillTimer = document.getElementById('pill-timer');
@@ -1042,9 +1568,7 @@
                 robot.flyTimeLeft--;
                 if (pillTimer) pillTimer.innerText = robot.flyTimeLeft;
                 if (robot.flyTimeLeft <= 0) {
-                    clearInterval(robot.flyInterval);
-                    robot.isFlying = false;
-                    if (pillHud) pillHud.classList.add('hidden');
+                    resetJetpackState();
                 }
             }, 1000);
         }
@@ -1052,50 +1576,73 @@
         function updatePhysics() {
             if (gameState !== 'playing') return;
 
-            // Horizontal Movement
-            const moveSpeed = 5 * robot.speedMultiplier;
+            if (robot.invulnerableTimer > 0) {
+                robot.invulnerableTimer--;
+            }
+
+            const moveSpeed = (5 * (robot.isSuperPowered ? 1.25 : 1.0)) * robot.speedMultiplier;
             if (keys.left) {
                 robot.vx = -moveSpeed;
                 robot.facingRight = false;
-                if (robot.isGrounded && Math.random() > 0.6) {
-                    createParticles(robot.x + 30, robot.y + 45, 1, 'dust', '#94a3b8');
-                }
             } else if (keys.right) {
                 robot.vx = moveSpeed;
                 robot.facingRight = true;
-                if (robot.isGrounded && Math.random() > 0.6) {
-                    createParticles(robot.x + 10, robot.y + 45, 1, 'dust', '#94a3b8');
-                }
             } else {
                 robot.vx *= 0.8;
             }
 
             robot.x += robot.vx;
 
-            // Gravity & Vertical Movement
             if (!robot.isFlying) {
-                robot.vy += 0.55; // Gravity
+                robot.vy += 0.55;
             } else {
+                robot.vy = Math.max(-7, robot.vy + 0.2);
                 createParticles(robot.x + 20, robot.y + 40, 2, 'spark', '#f472b6');
             }
             robot.y += robot.vy;
 
-            // Platform Collisions
-            const prevGrounded = robot.isGrounded;
-            robot.isGrounded = false;
             const effectiveWidth = robot.width * robot.scale;
             const effectiveHeight = robot.height * robot.scale;
 
+            // CYBER BOOK TERMINAL COLLISION
+            gates.forEach(gate => {
+                if (!gate.cleared) {
+                    if (robot.x + effectiveWidth > gate.x &&
+                        robot.x < gate.x + gate.width &&
+                        robot.y + effectiveHeight > gate.y &&
+                        robot.y < gate.y + gate.height + 10) {
+
+                        robot.vx = 0;
+                        triggerMathQuiz(gate);
+                    }
+                }
+            });
+
+            // PLATFORM COLLISION
+            const prevGrounded = robot.isGrounded;
+            robot.isGrounded = false;
+
             platforms.forEach(plat => {
+                if (plat.isMoving) {
+                    plat.x += plat.moveSpeed;
+                    if (plat.x > plat.startX + plat.moveRange || plat.x < plat.startX - plat.moveRange) {
+                        plat.moveSpeed *= -1;
+                    }
+                }
+
                 if (robot.x + effectiveWidth > plat.x &&
                     robot.x < plat.x + plat.width &&
                     robot.y + effectiveHeight >= plat.y &&
-                    robot.y + effectiveHeight <= plat.y + 15 &&
+                    robot.y + effectiveHeight <= plat.y + 16 &&
                     robot.vy >= 0) {
                     robot.y = plat.y - effectiveHeight;
                     robot.vy = 0;
                     robot.isGrounded = true;
                     robot.jumpCount = 0;
+
+                    if (plat.isMoving) {
+                        robot.x += plat.moveSpeed;
+                    }
 
                     if (!prevGrounded) {
                         createParticles(robot.x + effectiveWidth / 2, robot.y + effectiveHeight, 8, 'dust', '#94a3b8');
@@ -1103,15 +1650,42 @@
                 }
             });
 
-            // Fall Safety Net Reset
-            if (robot.y > 800) {
-                robot.x = 50;
-                robot.y = 300;
-                robot.vy = 0;
-                triggerScreenShake(6, 10);
+            hazards.forEach(hz => {
+                if (hz.parentPlat && hz.parentPlat.isMoving) {
+                    hz.x = hz.parentPlat.startX + (hz.parentPlat.x - hz.parentPlat.startX) + (hz.parentPlat.width / 2 - 12);
+                }
+
+                if (!robot.isSuperPowered &&
+                    robot.x + effectiveWidth > hz.x &&
+                    robot.x < hz.x + hz.width &&
+                    robot.y + effectiveHeight > hz.y &&
+                    robot.y < hz.y + hz.height) {
+                    takeDamage(1);
+                    robot.vy = -6;
+                }
+            });
+
+            enemies.forEach(en => {
+                en.x += en.vx;
+                if (en.x > en.maxX || en.x < en.minX) en.vx *= -1;
+
+                if (!robot.isSuperPowered &&
+                    robot.x + effectiveWidth > en.x &&
+                    robot.x < en.x + en.width &&
+                    robot.y + effectiveHeight > en.y &&
+                    robot.y < en.y + en.height) {
+                    takeDamage(1);
+                    robot.vy = -7;
+                }
+            });
+
+            if (robot.y > 900) {
+                takeDamage(1);
+                if (robot.health > 0) {
+                    robot.x = 80; robot.y = 450; robot.vy = 0;
+                }
             }
 
-            // Collect Stars
             stars.forEach(star => {
                 if (!star.collected &&
                     robot.x + effectiveWidth > star.x &&
@@ -1120,7 +1694,7 @@
                     robot.y < star.y + star.height) {
                     star.collected = true;
                     levelScore += 20;
-                    robot.scale = Math.min(1.5, robot.scale + 0.05);
+                    robot.scale = Math.min(1.4, robot.scale + 0.04);
                     playSound('star');
                     createParticles(star.x + 10, star.y + 10, 15, 'spark', '#facc15');
                     createFloatingText(star.x, star.y - 10, '+20', '#facc15');
@@ -1128,7 +1702,6 @@
                 }
             });
 
-            // Collect Flying Pills
             flyingPills.forEach(pill => {
                 if (!pill.collected &&
                     robot.x + effectiveWidth > pill.x &&
@@ -1140,52 +1713,42 @@
                 }
             });
 
-            // Math Gate Collisions
-            gates.forEach(gate => {
-                if (!gate.cleared &&
-                    robot.x + effectiveWidth > gate.x &&
-                    robot.x < gate.x + gate.width &&
-                    robot.y + effectiveHeight > gate.y &&
-                    robot.y < gate.y + gate.height) {
-                    triggerMathQuiz(gate);
+            // FINISH CHEST CHECK
+            if (robot.x + effectiveWidth > finishChest.x &&
+                robot.x < finishChest.x + finishChest.width &&
+                robot.y + effectiveHeight > finishChest.y &&
+                robot.y < finishChest.y + finishChest.height) {
+                
+                const unclearedGates = gates.filter(g => !g.cleared);
+                if (unclearedGates.length > 0) {
+                    robot.vx = robot.x < finishChest.x ? -7 : 7;
+                    robot.vy = -4;
+                    playSound('wrong');
+                    triggerScreenShake(8, 12);
+                    createFloatingText(finishChest.x, finishChest.y - 20, `SELESAIKAN ${unclearedGates.length} SOAL DULU!`, '#ef4444');
+                } else {
+                    triggerLevelComplete();
                 }
-            });
-
-            // Finish Portal Collision
-            if (robot.x + effectiveWidth > finishPortal.x &&
-                robot.x < finishPortal.x + finishPortal.width &&
-                robot.y + effectiveHeight > finishPortal.y &&
-                robot.y < finishPortal.y + finishPortal.height) {
-                triggerLevelComplete();
             }
 
-            // Camera follow
             camera.x += (robot.x - canvas.width / 3 - camera.x) * 0.1;
             camera.y += (robot.y - canvas.height / 2 - camera.y) * 0.1;
 
-            // Particle Updates
             for (let i = particles.length - 1; i >= 0; i--) {
                 let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.life--;
+                p.x += p.vx; p.y += p.vy; p.life--;
                 p.alpha = p.life / p.maxLife;
                 if (p.life <= 0) particles.splice(i, 1);
             }
 
-            // Floating Text Updates
             for (let i = floatingTexts.length - 1; i >= 0; i--) {
                 let ft = floatingTexts[i];
-                ft.y += ft.vy;
-                ft.life--;
+                ft.y += ft.vy; ft.life--;
                 ft.alpha = ft.life / 45;
                 if (ft.life <= 0) floatingTexts.splice(i, 1);
             }
 
-            // Screen Shake Decay
-            if (screenShake.time > 0) {
-                screenShake.time--;
-            }
+            if (screenShake.time > 0) screenShake.time--;
         }
 
         function drawBackground(theme) {
@@ -1198,7 +1761,6 @@
             ctx.fillStyle = skyGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Cyber Grid Lines
             ctx.strokeStyle = (theme.accent || '#38bdf8') + '22';
             ctx.lineWidth = 1;
             const gridSize = 40;
@@ -1207,12 +1769,10 @@
 
             ctx.beginPath();
             for (let x = offsetX; x < canvas.width; x += gridSize) {
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
+                ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
             }
             for (let y = offsetY; y < canvas.height; y += gridSize) {
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
+                ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
             }
             ctx.stroke();
         }
@@ -1221,41 +1781,62 @@
             platforms.forEach(plat => {
                 ctx.fillStyle = plat.isSafeBase ? '#0f172a' : (theme.platform || '#1e293b');
                 ctx.fillRect(plat.x, plat.y, plat.width, plat.height);
-
                 ctx.fillStyle = theme.accent || '#38bdf8';
                 ctx.fillRect(plat.x, plat.y, plat.width, 4);
-
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
                 ctx.lineWidth = 1;
                 ctx.strokeRect(plat.x, plat.y, plat.width, plat.height);
             });
         }
 
+        function drawHazards() {
+            hazards.forEach(hz => {
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.moveTo(hz.x, hz.y + hz.height);
+                ctx.lineTo(hz.x + hz.width / 2, hz.y);
+                ctx.lineTo(hz.x + hz.width, hz.y + hz.height);
+                ctx.closePath();
+                ctx.fill();
+            });
+
+            enemies.forEach(en => {
+                ctx.save();
+                ctx.shadowColor = '#f43f5e'; ctx.shadowBlur = 12;
+                ctx.fillStyle = '#f43f5e';
+                ctx.beginPath();
+                ctx.arc(en.x + en.width / 2, en.y + en.height / 2, en.width / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fef08a';
+                ctx.beginPath();
+                ctx.arc(en.x + en.width / 2, en.y + en.height / 2, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+        }
+
         function drawRobot() {
+            if (robot.invulnerableTimer > 0 && Math.floor(robot.invulnerableTimer / 4) % 2 === 0) {
+                return;
+            }
+
             ctx.save();
             ctx.translate(robot.x + (robot.width * robot.scale) / 2, robot.y + (robot.height * robot.scale) / 2);
 
-            if (!robot.facingRight) {
-                ctx.scale(-1, 1);
-            }
+            if (!robot.facingRight) ctx.scale(-1, 1);
 
             const scale = robot.scale;
             const w = robot.width * scale;
             const h = robot.height * scale;
 
-            // Glow Aura if flying
-            if (robot.isFlying) {
+            if (robot.isSuperPowered) {
                 ctx.save();
-                ctx.shadowColor = '#ec4899';
-                ctx.shadowBlur = 20;
-                ctx.fillStyle = 'rgba(236, 72, 153, 0.35)';
-                ctx.beginPath();
-                ctx.arc(0, 0, w * 0.95, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.shadowColor = '#f472b6'; ctx.shadowBlur = 25;
+                ctx.fillStyle = 'rgba(244, 114, 182, 0.45)';
+                ctx.beginPath(); ctx.arc(0, 0, w * 1.2, 0, Math.PI * 2); ctx.fill();
                 ctx.restore();
             }
 
-            // Thruster flames
             if (!robot.isGrounded || robot.isFlying) {
                 ctx.fillStyle = robot.isFlying ? '#ec4899' : '#f59e0b';
                 ctx.beginPath();
@@ -1265,63 +1846,132 @@
                 ctx.fill();
             }
 
-            // Body Armor
-            ctx.fillStyle = robot.color || '#06b6d4';
+            ctx.fillStyle = robot.isSuperPowered ? '#f472b6' : (robot.color || '#06b6d4');
             ctx.fillRect(-w * 0.4, -h * 0.1, w * 0.8, h * 0.5);
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; ctx.lineWidth = 2;
             ctx.strokeRect(-w * 0.4, -h * 0.1, w * 0.8, h * 0.5);
 
-            // Arc Reactor Core
             ctx.fillStyle = '#facc15';
-            ctx.beginPath();
-            ctx.arc(0, h * 0.15, w * 0.15, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.beginPath(); ctx.arc(0, h * 0.15, w * 0.15, 0, Math.PI * 2); ctx.fill();
 
-            // OLED Monitor Head
-            const headW = w * 0.7;
-            const headH = h * 0.4;
-            const headY = -h * 0.45;
+            const headW = w * 0.7, headH = h * 0.4, headY = -h * 0.45;
 
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(-headW / 2, headY, headW, headH);
-            ctx.strokeStyle = robot.color || '#06b6d4';
-            ctx.lineWidth = 2;
+            ctx.fillStyle = '#0f172a'; ctx.fillRect(-headW / 2, headY, headW, headH);
+            ctx.strokeStyle = robot.isSuperPowered ? '#f472b6' : (robot.color || '#06b6d4'); ctx.lineWidth = 2;
             ctx.strokeRect(-headW / 2, headY, headW, headH);
 
-            // Screen Expression
             ctx.fillStyle = robot.isFlying ? '#f472b6' : '#38bdf8';
             ctx.font = `bold ${Math.max(10, 12 * scale)}px Orbitron, sans-serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
             const faceText = robot.isFlying ? '★ ★' : (robot.faceExpression || '^ ^');
             ctx.fillText(faceText, 0, headY + headH / 2);
 
-            // Antenna
-            ctx.strokeStyle = '#94a3b8';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(0, headY);
-            ctx.lineTo(0, headY - 8);
-            ctx.stroke();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(0, headY); ctx.lineTo(0, headY - 8); ctx.stroke();
 
             ctx.fillStyle = '#ef4444';
-            ctx.beginPath();
-            ctx.arc(0, headY - 10, 3, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.beginPath(); ctx.arc(0, headY - 10, 3, 0, Math.PI * 2); ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawGates() {
+            gates.forEach(gate => {
+                ctx.save();
+                ctx.translate(gate.x, gate.y);
+
+                if (gate.cleared) {
+                    ctx.shadowColor = '#10b981'; ctx.shadowBlur = 12;
+                    ctx.fillStyle = '#065f46';
+                    ctx.fillRect(0, 10, gate.width, gate.height - 10);
+                    ctx.strokeStyle = '#34d399'; ctx.lineWidth = 2;
+                    ctx.strokeRect(0, 10, gate.width, gate.height - 10);
+
+                    ctx.fillStyle = '#34d399';
+                    ctx.font = '20px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('📖', gate.width / 2, 6);
+
+                    ctx.fillStyle = '#a7f3d0';
+                    ctx.font = 'bold 9px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText(`✓ SOAL ${gate.missionNumber}`, gate.width / 2, -6);
+                } else {
+                    ctx.shadowColor = '#38bdf8'; ctx.shadowBlur = 15;
+                    ctx.fillStyle = '#0f172a';
+                    ctx.fillRect(0, 10, gate.width, gate.height - 10);
+                    ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2;
+                    ctx.strokeRect(0, 10, gate.width, gate.height - 10);
+
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.font = '20px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('📘', gate.width / 2, 6);
+
+                    ctx.fillStyle = '#fef08a';
+                    ctx.font = 'bold 9px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText(`📘 SOAL #${gate.missionNumber}`, gate.width / 2, -6);
+                }
+
+                ctx.restore();
+            });
+        }
+
+        function drawCyberChest() {
+            const unclearedGates = gates.filter(g => !g.cleared);
+            const isUnlocked = unclearedGates.length === 0;
+
+            ctx.save();
+            ctx.translate(finishChest.x, finishChest.y);
+
+            if (isUnlocked) {
+                ctx.shadowColor = '#facc15'; ctx.shadowBlur = 20;
+                
+                ctx.fillStyle = '#eab308';
+                ctx.fillRect(0, 15, finishChest.width, finishChest.height - 15);
+                ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 2;
+                ctx.strokeRect(0, 15, finishChest.width, finishChest.height - 15);
+
+                ctx.fillStyle = '#f59e0b';
+                ctx.fillRect(-4, 0, finishChest.width + 8, 12);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '20px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('🎁', finishChest.width / 2, 10);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 10px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('SIAP BUKA!', finishChest.width / 2, -14);
+            } else {
+                ctx.shadowColor = '#ef4444'; ctx.shadowBlur = 12;
+
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(0, 10, finishChest.width, finishChest.height - 10);
+                ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+                ctx.strokeRect(0, 10, finishChest.width, finishChest.height - 10);
+
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(-2, 4, finishChest.width + 4, 10);
+
+                ctx.fillStyle = '#ef4444';
+                ctx.beginPath();
+                ctx.arc(finishChest.width / 2, finishChest.height / 2 + 2, 7, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#fef08a';
+                ctx.font = 'bold 9px Orbitron, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText(`🔒 SOAL ${unclearedGates.length}`, finishChest.width / 2, -10);
+            }
 
             ctx.restore();
         }
 
         function render() {
             if (!ctx) return;
-            const theme = levelThemes[(currentLevel - 1) % levelThemes.length];
+            const themes = GAME_CONFIG_JSON.themes;
+            const theme = themes[(currentLevel - 1) % themes.length];
 
             drawBackground(theme);
 
             ctx.save();
 
-            // Apply Screen Shake
             let shakeX = 0, shakeY = 0;
             if (screenShake.time > 0) {
                 shakeX = (Math.random() - 0.5) * screenShake.intensity;
@@ -1331,72 +1981,44 @@
             ctx.translate(-camera.x + shakeX, -camera.y + shakeY);
 
             drawPlatforms(theme);
+            drawHazards();
 
-            // Render Stars
             stars.forEach(star => {
                 if (star.collected) return;
                 ctx.save();
-                ctx.shadowColor = '#facc15';
-                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#facc15'; ctx.shadowBlur = 10;
                 ctx.fillStyle = '#facc15';
-                ctx.beginPath();
-                ctx.arc(star.x + star.width / 2, star.y + star.height / 2, star.width / 2, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
+                ctx.beginPath(); ctx.arc(star.x + star.width / 2, star.y + star.height / 2, star.width / 2, 0, Math.PI * 2);
+                ctx.fill(); ctx.restore();
             });
 
-            // Render Flying Pills
             flyingPills.forEach(pill => {
                 if (pill.collected) return;
                 ctx.save();
-                ctx.shadowColor = '#ec4899';
-                ctx.shadowBlur = 12;
+                ctx.shadowColor = '#ec4899'; ctx.shadowBlur = 15;
                 ctx.fillStyle = '#ec4899';
-                ctx.beginPath();
-                ctx.arc(pill.x + pill.width / 2, pill.y + pill.height / 2, pill.width / 2, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(pill.x + pill.width / 2, pill.y + pill.height / 2, pill.width / 2, 0, Math.PI * 2);
+                ctx.fill(); 
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '12px FontAwesome'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('🚀', pill.x + pill.width / 2, pill.y + pill.height / 2);
                 ctx.restore();
             });
 
-            // Render Math Gates
-            gates.forEach(gate => {
-                if (gate.cleared) return;
-                ctx.fillStyle = 'rgba(239, 68, 68, 0.75)';
-                ctx.fillRect(gate.x, gate.y, gate.width, gate.height);
-                ctx.strokeStyle = '#f87171';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(gate.x, gate.y, gate.width, gate.height);
-            });
-
-            // Render Swirling Finish Portal
-            ctx.save();
-            ctx.shadowColor = '#10b981';
-            ctx.shadowBlur = 20;
-            ctx.fillStyle = '#10b981';
-            ctx.fillRect(finishPortal.x, finishPortal.y, finishPortal.width, finishPortal.height);
-            ctx.strokeStyle = '#6ee7b7';
-            ctx.lineWidth = 3;
-            ctx.strokeRect(finishPortal.x, finishPortal.y, finishPortal.width, finishPortal.height);
-            ctx.restore();
-
+            drawGates();
+            drawCyberChest();
             drawRobot();
 
-            // Render Particles
             particles.forEach(p => {
                 ctx.save();
-                ctx.globalAlpha = p.alpha;
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
+                ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill(); ctx.restore();
             });
 
-            // Render Floating Text
             floatingTexts.forEach(ft => {
                 ctx.save();
-                ctx.globalAlpha = ft.alpha;
-                ctx.fillStyle = ft.color;
+                ctx.globalAlpha = ft.alpha; ctx.fillStyle = ft.color;
                 ctx.font = 'bold 14px Orbitron, sans-serif';
                 ctx.fillText(ft.text, ft.x, ft.y);
                 ctx.restore();
@@ -1429,7 +2051,7 @@
                 canvas.height = window.innerHeight;
             }
 
-            registerServiceWorker();
+            loadSavedProgress();
 
             window.addEventListener('resize', () => {
                 if (canvas) {
