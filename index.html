@@ -13,6 +13,8 @@
     <meta name="apple-mobile-web-app-title" content="RoboCore">
     <meta name="description" content="ROBO-CORE: MATH MATRIX - Game Edukasi Matematika Arcade Futuristik">
 
+    <link rel="manifest" href='data:application/manifest+json,{"name":"ROBO-CORE: Math Matrix","short_name":"RoboCore","description":"Game Edukasi Matematika Arcade Futuristik","start_url":".","display":"standalone","orientation":"landscape","background_color":"#020617","theme_color":"#020617","icons":[{"src":"https://placehold.co/192x192/020617/38bdf8?text=ROBO","sizes":"192x192","type":"image/png"},{"src":"https://placehold.co/512x512/020617/38bdf8?text=ROBO","sizes":"512x512","type":"image/png"}]}'>
+
     <!-- Tailwind CSS & FontAwesome CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -235,8 +237,7 @@
                     <span>MULAI MAIN</span>
                 </button>
 
-                <!-- PWA Install Button -->
-                <button id="btn-pwa-install" onclick="installPWAApp()" class="hidden btn-cyber w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 rounded-2xl font-bold text-slate-950 shadow-lg border border-yellow-200 flex justify-center items-center space-x-2">
+                <button id="btn-pwa-install" onclick="installPWAApp()" class="btn-cyber w-full py-3 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 rounded-2xl font-bold text-slate-950 shadow-lg border border-yellow-200 flex justify-center items-center space-x-2">
                     <i class="fa-solid fa-download text-lg"></i>
                     <span>INSTALL APP / APK</span>
                 </button>
@@ -397,36 +398,31 @@
                     </div>
                 </div>
 
-                <div class="cyber-card p-3.5 rounded-2xl">
-                    <h4 class="font-bold text-xs text-yellow-300 mb-2.5 font-cyber"><i class="fa-solid fa-microchip mr-1"></i> Engine Speed Module</h4>
-                    <div class="space-y-2">
-                        <button onclick="upgradeCPU('Standard', 1.0)" class="w-full py-1.5 px-3 bg-slate-900/90 hover:bg-slate-800 rounded-xl text-left text-xs font-bold border border-slate-700 flex justify-between items-center">
-                            <span>Standard Core</span>
-                            <span class="text-cyan-400 font-cyber">1.0x</span>
-                        </button>
-                        <button onclick="upgradeCPU('Turbo', 1.25)" class="w-full py-1.5 px-3 bg-slate-900/90 hover:bg-slate-800 rounded-xl text-left text-xs font-bold border border-slate-700 flex justify-between items-center">
-                            <span>Quantum Turbo</span>
-                            <span class="text-amber-400 font-cyber">1.25x</span>
-                        </button>
-                    </div>
+    <div id="ios-install-modal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex justify-center items-center p-4">
+        <div class="cyber-glass-panel w-full max-w-md p-6 rounded-3xl border-2 border-amber-400 shadow-2xl text-center relative">
+            <button onclick="closeIosInstallModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 mx-auto mb-3 bg-amber-500/20 rounded-2xl flex justify-center items-center border border-amber-400 text-amber-400 text-2xl">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </div>
+            <h3 class="text-xl font-cyber font-bold text-yellow-300 mb-2">PANDUAN INSTALL (iOS / iPhone)</h3>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                Di Safari iOS, Anda dapat memasang game ini ke Layar Utama (*Home Screen*) tanpa App Store:
+            </p>
+            <div class="bg-slate-900/90 p-4 rounded-xl text-left text-xs space-y-2 border border-slate-700 font-sans">
+                <div class="flex items-center space-x-2">
+                    <span class="bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">1</span>
+                    <span>Tekan tombol <b>Bagikan (Share)</b> <i class="fa-solid fa-share-from-square text-cyan-400"></i> di Safari.</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-amber-400 text-slate-950 font-bold px-2 py-0.5 rounded">2</span>
+                    <span>Pilih opsi <b>"Tambahkan ke Layar Utama"</b> (*Add to Home Screen*).</span>
                 </div>
             </div>
-
-            <div class="cyber-card p-3.5 rounded-2xl my-2 text-xs">
-                <div class="flex justify-between mb-1.5 font-cyber">
-                    <span>Kecepatan Akselerasi:</span>
-                    <span id="stat-speed-text" class="text-cyan-400 font-bold">100%</span>
-                </div>
-                <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700">
-                    <div id="stat-speed-bar" class="bg-gradient-to-r from-cyan-500 to-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 70%"></div>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <button onclick="closeWorkshop()" class="btn-cyber px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-cyber font-bold text-white text-xs tracking-wider">
-                    SIMPAN & KEMBALI
-                </button>
-            </div>
+            <button onclick="closeIosInstallModal()" class="mt-5 btn-cyber px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl">
+                MENGERTI
+            </button>
         </div>
     </div>
 
@@ -684,6 +680,22 @@
             document.getElementById('btn-pwa-hud')?.classList.remove('hidden');
         });
 
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    const CACHE_NAME = 'robocore-v1';
+                    self.addEventListener('install', (e) => { self.skipWaiting(); });
+                    self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+                    });
+                `;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Reg Fail:', err));
+            }
+        }
+
         window.installPWAApp = function() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
@@ -692,7 +704,19 @@
                     document.getElementById('btn-pwa-install')?.classList.add('hidden');
                     document.getElementById('btn-pwa-hud')?.classList.add('hidden');
                 });
+            } else {
+                // Jika di iOS Safari atau browser tanpa prompt otomatis
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    document.getElementById('ios-install-modal')?.classList.remove('hidden');
+                } else {
+                    alert("Aplikasi siap diinstal! Pilih menu browser (titik tiga) lalu pilih 'Tambahkan ke Layar Utama' / 'Install Application'.");
+                }
             }
+        };
+
+        window.closeIosInstallModal = function() {
+            document.getElementById('ios-install-modal')?.classList.add('hidden');
         };
 
         window.requestFullscreenAndLock = function() {
@@ -1404,6 +1428,8 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
+
+            registerServiceWorker();
 
             window.addEventListener('resize', () => {
                 if (canvas) {
